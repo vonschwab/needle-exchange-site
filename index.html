@@ -1,0 +1,1435 @@
+<title>The Needle Exchange — Prospectus &amp; Field Report</title>
+<style>
+/* ============================================================
+   THE NEEDLE EXCHANGE — prospectus & field report
+   Direction: 1960s scientific monograph, two-colour offset.
+   ============================================================ */
+
+:root {
+  /* --- light: lab stock, blueprint ink --- */
+  --paper:        #E9E7E0;
+  --paper-raised: #F3F1EB;
+  --paper-sunk:   #DFDDD4;
+  --ink:          #191B1E;
+  --ink-soft:     #565A5F;
+  --ink-faint:    #85888C;
+  --rule:         #C6C4BA;
+  --rule-hair:    #D6D4CA;
+  --accent:       #1D4E77;
+  --accent-soft:  #E0E7EE;
+  --built:        #2F6B4F;
+  --built-soft:   #DFE9E1;
+  --partial:      #9A6413;
+  --partial-soft: #F0E6D2;
+  --absent:       #9B3A2C;
+  --absent-soft:  #F0DFDA;
+  --shadow:       0 1px 0 rgba(25,27,30,.06), 0 2px 14px rgba(25,27,30,.05);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --mono:  ui-monospace, "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+
+  --measure: 34rem;
+  --rail: 8.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:        #15171A;
+    --paper-raised: #1D2025;
+    --paper-sunk:   #101215;
+    --ink:          #E6E3DA;
+    --ink-soft:     #A0A39A;
+    --ink-faint:    #74776F;
+    --rule:         #33373C;
+    --rule-hair:    #26292E;
+    --accent:       #7FB0D8;
+    --accent-soft:  #1B2A38;
+    --built:        #74B48D;
+    --built-soft:   #17271D;
+    --partial:      #D8A24E;
+    --partial-soft: #2B2113;
+    --absent:       #D98374;
+    --absent-soft:  #2E1A16;
+    --shadow:       0 1px 0 rgba(0,0,0,.3), 0 2px 16px rgba(0,0,0,.35);
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:        #15171A;
+  --paper-raised: #1D2025;
+  --paper-sunk:   #101215;
+  --ink:          #E6E3DA;
+  --ink-soft:     #A0A39A;
+  --ink-faint:    #74776F;
+  --rule:         #33373C;
+  --rule-hair:    #26292E;
+  --accent:       #7FB0D8;
+  --accent-soft:  #1B2A38;
+  --built:        #74B48D;
+  --built-soft:   #17271D;
+  --partial:      #D8A24E;
+  --partial-soft: #2B2113;
+  --absent:       #D98374;
+  --absent-soft:  #2E1A16;
+  --shadow:       0 1px 0 rgba(0,0,0,.3), 0 2px 16px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 1.25rem 6rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sheet { max-width: 63rem; margin: 0 auto; }
+
+/* ---------- marginal rail layout ---------- */
+.block {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 2.25rem;
+  align-items: start;
+}
+.block > .rail {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1.5;
+  padding-top: .55rem;
+  text-align: right;
+  border-right: 1px solid var(--rule-hair);
+  padding-right: 1rem;
+  min-height: 1.5rem;
+}
+.block > .body { min-width: 0; }
+@media (max-width: 800px) {
+  .block { grid-template-columns: minmax(0,1fr); gap: 0; }
+  .block > .rail {
+    text-align: left; border-right: 0; padding-right: 0;
+    border-bottom: 1px solid var(--rule-hair);
+    padding-bottom: .3rem; margin-bottom: .9rem;
+  }
+}
+
+/* ---------- masthead ---------- */
+.masthead {
+  border-bottom: 3px double var(--ink);
+  padding: 3.5rem 0 1.1rem;
+  margin-bottom: .5rem;
+}
+.masthead .kicker {
+  font-family: var(--mono);
+  font-size: .7rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 1.1rem;
+}
+.masthead h1 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  line-height: .95; margin: 0; font-weight: 400;
+  letter-spacing: -.022em; text-wrap: balance;
+}
+.masthead .deck {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: var(--ink-soft); margin: 1.1rem 0 0;
+  max-width: 40rem; font-style: italic;
+}
+.colophon {
+  display: flex; flex-wrap: wrap; gap: .5rem 2rem;
+  font-family: var(--mono); font-size: .7rem;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: .8rem 0 0; margin-bottom: 4rem;
+}
+
+/* ---------- section headings ---------- */
+.part {
+  margin: 5.5rem 0 2rem;
+  border-top: 1px solid var(--ink);
+  padding-top: .7rem;
+}
+.part .num {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--accent); display: block;
+  margin-bottom: .5rem;
+}
+.part h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin: 0; font-weight: 400; letter-spacing: -.015em; text-wrap: balance;
+}
+h3 {
+  font-size: 1.28rem; font-weight: 400; margin: 2.6rem 0 .7rem;
+  letter-spacing: -.008em; text-wrap: balance;
+}
+h4 {
+  font-family: var(--mono); font-size: .74rem; font-weight: 600;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-soft); margin: 2rem 0 .6rem;
+}
+
+p { margin: 0 0 1.05rem; max-width: var(--measure); }
+.wide p, .wide { max-width: none; }
+strong { font-weight: 600; }
+em { font-style: italic; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+a:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px;
+}
+
+.lede {
+  font-size: 1.24rem; line-height: 1.52; max-width: 38rem;
+}
+.lede strong { font-weight: 600; }
+
+ul, ol { max-width: var(--measure); padding-left: 1.15rem; margin: 0 0 1.05rem; }
+li { margin-bottom: .5rem; }
+li::marker { color: var(--ink-faint); }
+
+/* ---------- pull statement ---------- */
+.statement {
+  border-left: 3px solid var(--accent);
+  padding: .2rem 0 .2rem 1.5rem;
+  margin: 2.2rem 0;
+  font-size: 1.3rem; line-height: 1.45;
+  max-width: 36rem;
+}
+.statement .attrib {
+  display: block; font-family: var(--mono); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-faint); margin-top: .8rem;
+}
+
+/* ---------- figures ---------- */
+figure {
+  margin: 2.6rem 0; padding: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow);
+}
+figure > .plate { padding: 1.6rem; overflow-x: auto; }
+figcaption {
+  font-family: var(--mono); font-size: .73rem; line-height: 1.55;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--rule-hair);
+  padding: .75rem 1.1rem;
+  background: var(--paper-sunk);
+}
+figcaption b {
+  color: var(--accent); font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+
+/* ---------- signal-path diagram ---------- */
+.flow { display: flex; flex-direction: column; gap: 0; min-width: 40rem; }
+.stage {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(9rem, 13rem) minmax(0, 1fr);
+  gap: 0 1.1rem; align-items: start;
+  padding: .95rem 0;
+  border-bottom: 1px solid var(--rule-hair);
+}
+.stage:last-child { border-bottom: 0; }
+.stage .idx {
+  font-family: var(--mono); font-size: .8rem; color: var(--accent);
+  padding-top: .12rem; font-variant-numeric: tabular-nums;
+}
+.stage .name {
+  font-family: var(--mono); font-size: .82rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+}
+.stage .name small {
+  display: block; font-weight: 400; text-transform: none; letter-spacing: 0;
+  color: var(--ink-faint); font-size: .74rem; margin-top: .2rem;
+}
+.stage .detail { font-size: .93rem; color: var(--ink-soft); }
+.stage .detail .qty {
+  font-family: var(--mono); font-size: .8rem; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.stage.hot { background: var(--accent-soft); }
+.stage.hot .detail { color: var(--ink); }
+
+/* ---------- status chips ---------- */
+.chip {
+  display: inline-block;
+  font-family: var(--mono); font-size: .64rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .16rem .5rem; border: 1px solid currentColor;
+  white-space: nowrap; vertical-align: .08em;
+}
+.chip.built   { color: var(--built);   background: var(--built-soft); }
+.chip.partial { color: var(--partial); background: var(--partial-soft); }
+.chip.absent  { color: var(--absent);  background: var(--absent-soft); }
+.chip.info    { color: var(--accent);  background: var(--accent-soft); }
+
+/* ---------- tables ---------- */
+.tablewrap { overflow-x: auto; margin: 1.8rem 0; }
+table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .93rem; }
+th, td {
+  text-align: left; padding: .62rem .9rem .62rem 0;
+  border-bottom: 1px solid var(--rule-hair); vertical-align: top;
+}
+thead th {
+  font-family: var(--mono); font-size: .68rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-faint); border-bottom: 1px solid var(--rule);
+}
+td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; padding-right: 1.4rem; }
+tbody tr:last-child td { border-bottom: 0; }
+table .lead { font-weight: 600; }
+
+/* ---------- the mock ---------- */
+.mock {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  min-width: 34rem;
+}
+.mock-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: .55rem .9rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-sunk);
+  font-family: var(--mono); font-size: .66rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint);
+}
+.mock-inner { padding: 1.4rem; }
+.mock-title {
+  font-size: 1.5rem; margin: 0 0 .15rem; letter-spacing: -.01em;
+}
+.mock-sub {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0 0 1.5rem;
+}
+.channel { margin-bottom: 1.9rem; }
+.channel:last-child { margin-bottom: 0; }
+.channel-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; border-bottom: 1px solid var(--ink);
+  padding-bottom: .3rem; margin-bottom: .9rem;
+}
+.channel-head h5 {
+  font-family: var(--mono); font-size: .76rem; font-weight: 600;
+  letter-spacing: .13em; text-transform: uppercase; margin: 0;
+}
+.channel-head .count {
+  font-family: var(--mono); font-size: .68rem; color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.1rem; }
+@media (max-width: 640px) { .cards { grid-template-columns: minmax(0,1fr); } }
+.card { display: flex; flex-direction: column; gap: .42rem; }
+.art {
+  aspect-ratio: 1; border: 1px solid var(--rule);
+  background:
+    repeating-linear-gradient(135deg, var(--paper-sunk) 0 7px, var(--paper-raised) 7px 14px);
+  display: flex; align-items: flex-end; padding: .4rem;
+}
+.art span {
+  font-family: var(--mono); font-size: .58rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.card .who { font-size: .95rem; font-weight: 600; line-height: 1.25; }
+.card .what { font-size: .95rem; font-style: italic; line-height: 1.25; color: var(--ink-soft); }
+.card .fig {
+  font-family: var(--mono); font-size: .655rem; line-height: 1.5;
+  color: var(--ink-soft); border-top: 1px solid var(--rule-hair); padding-top: .35rem;
+}
+.card .fig b { color: var(--accent); font-weight: 600; }
+.card .act {
+  font-family: var(--mono); font-size: .63rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--accent);
+}
+.empty-state {
+  border: 1px dashed var(--rule); padding: 1.1rem;
+  font-family: var(--mono); font-size: .7rem; line-height: 1.6;
+  color: var(--ink-faint); text-align: center;
+}
+
+/* ---------- refusal list ---------- */
+.refusals { max-width: 40rem; border-top: 1px solid var(--rule); }
+.refusal {
+  display: grid; grid-template-columns: 1.6rem minmax(0,1fr); gap: 0 .9rem;
+  padding: .95rem 0; border-bottom: 1px solid var(--rule-hair);
+}
+.refusal .x {
+  font-family: var(--mono); color: var(--absent); font-size: .95rem; line-height: 1.5;
+}
+.refusal b { font-weight: 600; }
+.refusal p { margin: .2rem 0 0; font-size: .93rem; color: var(--ink-soft); max-width: none; }
+
+/* ---------- callout ---------- */
+.note {
+  border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+  background: var(--paper-raised);
+  padding: 1.1rem 1.3rem; margin: 2rem 0; max-width: 40rem;
+}
+.note h4 { margin-top: 0; }
+.note p:last-child { margin-bottom: 0; }
+
+/* ---------- help grid ---------- */
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.4rem; margin: 2rem 0; }
+.role { border-top: 2px solid var(--accent); padding-top: .8rem; }
+.role h4 { margin: 0 0 .4rem; color: var(--ink); }
+.role p { font-size: .92rem; margin: 0; color: var(--ink-soft); max-width: none; }
+
+/* ---------- steps ---------- */
+.steps { border-top: 1px solid var(--rule); max-width: 44rem; }
+.step {
+  display: grid; grid-template-columns: 3.2rem minmax(0,1fr);
+  gap: 0 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--rule-hair);
+}
+.step .n {
+  font-family: var(--mono); font-size: 1.5rem; color: var(--accent);
+  line-height: 1; font-variant-numeric: tabular-nums;
+}
+.step h4 { margin: 0 0 .35rem; color: var(--ink); font-size: .8rem; }
+.step p { margin: 0; font-size: .93rem; color: var(--ink-soft); max-width: none; }
+.step .tag {
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--ink-faint); margin-top: .4rem; display: block;
+}
+
+hr.thin { border: 0; border-top: 1px solid var(--rule-hair); margin: 3rem 0; }
+
+/* ---------- two-relationship diagram ---------- */
+.rel { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0; min-width: 34rem; }
+.rel-col { padding: 1.2rem 1.4rem; border-right: 1px solid var(--rule-hair); }
+.rel-col:last-child { border-right: 0; }
+.rel-col .lbl {
+  font-family: var(--mono); font-size: .78rem; font-weight: 600;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--accent);
+}
+.rel-col .shape {
+  font-family: var(--mono); font-size: .66rem; color: var(--ink-faint);
+  letter-spacing: .06em; margin: .2rem 0 .9rem;
+}
+.rel-col ul { margin: 0; padding-left: 1rem; max-width: none; }
+.rel-col li { font-size: .88rem; color: var(--ink-soft); margin-bottom: .42rem; }
+.rel-col li b { color: var(--ink); font-weight: 600; }
+.rel-foot {
+  grid-column: 1 / -1; border-top: 1px solid var(--rule-hair);
+  padding: .9rem 1.4rem; font-family: var(--mono); font-size: .72rem;
+  color: var(--ink-soft); line-height: 1.6;
+}
+.rel-foot b { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) {
+  .rel { grid-template-columns: minmax(0,1fr); min-width: 0; }
+  .rel-col { border-right: 0; border-bottom: 1px solid var(--rule-hair); }
+}
+
+/* ---------- the design test ---------- */
+.test { display: flex; flex-direction: column; }
+.testrow {
+  display: grid; grid-template-columns: minmax(0,1fr) minmax(7rem, 10rem);
+  gap: 0 1.4rem; align-items: baseline;
+  padding: .72rem 1.3rem; border-bottom: 1px solid var(--rule-hair);
+}
+.testrow:last-child { border-bottom: 0; }
+.testrow .q { font-size: .95rem; }
+.testrow .a {
+  font-family: var(--mono); font-size: .7rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--absent); text-align: right;
+}
+.testrow.soft .a { color: var(--partial); }
+@media (max-width: 600px) {
+  .testrow { grid-template-columns: minmax(0,1fr); gap: .3rem; }
+  .testrow .a { text-align: left; }
+}
+
+/* ---------- formulas ---------- */
+.formula {
+  font-family: var(--mono); font-size: .82rem; line-height: 1.75;
+  background: var(--paper-raised); border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  padding: 1rem 1.2rem; margin: 1.4rem 0;
+  overflow-x: auto; white-space: pre;
+  font-variant-numeric: tabular-nums;
+}
+.formula .c { color: var(--ink-faint); }
+.formula .k { color: var(--accent); font-weight: 600; }
+.formula .v { color: var(--partial); }
+.src {
+  font-family: var(--mono); font-size: .66rem; letter-spacing: .06em;
+  color: var(--ink-faint); margin: -.9rem 0 1.6rem; display: block;
+}
+.terms { margin: 1.2rem 0; max-width: 40rem; }
+.term {
+  display: grid; grid-template-columns: minmax(7rem, 9rem) minmax(0,1fr);
+  gap: 0 1.2rem; padding: .7rem 0; border-bottom: 1px solid var(--rule-hair);
+}
+.term:first-child { border-top: 1px solid var(--rule-hair); }
+.term .w {
+  font-family: var(--mono); font-size: .8rem; color: var(--accent);
+  font-variant-numeric: tabular-nums; font-weight: 600;
+}
+.term .d { font-size: .92rem; color: var(--ink-soft); }
+.term .d b { color: var(--ink); font-weight: 600; }
+
+footer.end {
+  margin-top: 5rem; border-top: 3px double var(--ink); padding-top: 1rem;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-faint);
+  display: flex; flex-wrap: wrap; gap: .4rem 2rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card, .role { transition: opacity .2s ease; }
+}
+</style>
+
+<div class="sheet">
+
+<header class="masthead">
+  <p class="kicker">A note to a few friends · August 2026</p>
+  <h1>The Needle&nbsp;Exchange</h1>
+  <p class="deck">I've been building a music discovery thing. Here's what it is, what
+  actually works so far, and how you could get involved if any of it sounds fun.</p>
+</header>
+<div class="colophon">
+  <span>Written 2026-08-09</span>
+  <span>Every number measured that day</span>
+  <span>None of it quoted from memory</span>
+</div>
+
+<!-- ============================ PART I ============================ -->
+
+<div class="part">
+  <span class="num">One</span>
+  <h2>What it is</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Start here</div>
+  <div class="body">
+    <p class="lede">You remember the monthly playlist? We each posted five tracks every month. It wasn't a competition or a performance. Just a place to
+    earnestly post what we are actually listening to. <strong>That was a pretty great music
+    recommendation system</strong>, and it died when most of us left Spotify.</p>
+
+    <p>This started as me trying to recreate that, but I got obssessed and accidentally turned it into something slightly more ambitious.</p>
+
+    <h3>Leaving Spotify is the right move</h3>
+
+    <p>Spotify had a genuinely good idea: use what somebody actually listens to
+    to predict what they might want next. Then that idea got corrupted through a bunch of predictable
+    corporate bullshit — pay-to-play playlist slots, blackbox algorithm manipulation, AI-generated filler, 
+    all while paying artists virtually nothing and sending their money to the military industrial complex. 
+    Absolutely repulsive stuff.</p>
+
+    <p>So... let's start with the same idea, except it doesn't get all fucked up. I built an app that reads what you actually
+    play (via Last.fm), works out which artists and labels matter to you, subscribes to them across the
+    real music web — Bandcamp, YouTube, wherever they live — and tells you
+    when something new lands. <strong>It doesn't host any music.</strong> It just points you
+    at new music.</p>
+
+    <div class="statement">
+      An important data rule: every single recommendation can say why it's there.
+      Not in a vague "because you listened to X" way, but an actual provenance trail you can open and read.
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="rail">The feed</div>
+  <div class="body">
+    <h3>This isn't Letterboxd for music</h3>
+
+    <p>Yes, there's a taste profile. But, you never manually fill it in. No list to curate, no
+    slider, nothing to rate out of five, no artist you have to remember to go and add. It's
+    built from what you actually played — your Last.fm scrobbles, plus whatever listening history
+    you feel like importing.</p>
+
+    <p>From that the app works out which artists are worth watching, follows their Bandcamp and YouTube, and subscribes to them for
+    you. One of them puts out a record, it shows up. A label you obviously trust presses
+    something, it shows up. Somebody announces a date six weeks out, it lands on a release calendar.</p>
+
+    <p>You can still edit your own feed — hide a release, mute an artist you no longer care about, unfollow a label isn't for you, pick
+    which platform you'd rather listen on, etc.</p>
+
+    <h4>A digestible feed</h4>
+    <p>No more firehose of endless recommendations. The front page is something you can <strong>finish.</strong> Five channels — new
+    albums, new singles, videos and live sessions, a release calendar, and a discovery
+    shelf, all ranked by your own listening habits. Each channel is a playable queue. You get through it, you're done, go do something
+    else.</p>
+    <p>Do you actually want an infinite scroll? It's still there. We have a separate infinited scroll for the real freaks.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="plate">
+    <div class="mock">
+      <div class="mock-bar">
+        <span>Mock — not a screenshot</span>
+        <span>Design direction only</span>
+      </div>
+      <div class="mock-inner">
+        <p class="mock-title">Today</p>
+        <p class="mock-sub">Saturday 9 August · 24 new · 6 on the calendar</p>
+
+        <div class="channel">
+          <div class="channel-head">
+            <h5>New albums</h5>
+            <span class="count">12 · all playable</span>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <div class="art"><span>cover</span></div>
+              <div class="who">Mikaela Davis</div>
+              <div class="what">And Southern Star</div>
+              <div class="fig"><b>Fig.</b> released Aug 5 · via Kill Rock Stars · you played this artist 255× on last.fm</div>
+              <div class="act">▶ Bandcamp</div>
+            </div>
+            <div class="card">
+              <div class="art"><span>cover</span></div>
+              <div class="who">Dry Cleaning</div>
+              <div class="what">Boundary Road Snacks</div>
+              <div class="fig"><b>Fig.</b> released Aug 2 · via 4AD · you played this artist 200× on last.fm</div>
+              <div class="act">▶ Bandcamp</div>
+            </div>
+            <div class="card">
+              <div class="art"><span>cover</span></div>
+              <div class="who">Wednesday</div>
+              <div class="what">Bath County</div>
+              <div class="fig"><b>Fig.</b> released Jul 28 · via Dead Oceans · you played this artist 58× on last.fm</div>
+              <div class="act">▶ Bandcamp</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="channel">
+          <div class="channel-head">
+            <h5>Videos &amp; live sessions</h5>
+            <span class="count">0</span>
+          </div>
+          <div class="empty-state">
+            Nothing here yet — video supply isn't built.<br />
+            This is the honest empty state, not a placeholder.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 1</b> — Front page, design direction. <strong>This is a mock, not a
+    screenshot.</strong> The card anatomy is real and already implemented on the server:
+    artist, title, one deterministic <em>Fig.</em> line, one working listen link. Each clause
+    of that caption renders only if its evidence row exists — an absent label is absent, never
+    an empty string. Art direction is genuinely open.
+  </figcaption>
+</figure>
+
+<div class="block">
+  <div class="rail">The Club</div>
+  <div class="body">
+    <h3>Anti-social media</h3>
+
+    <p>The other half of this is social, but not like that.</p>
+
+    <p>This platform is built for zero pressure. It is philosophically not performative:
+    No public feed, no panopticon.</p>
+
+    <p>None of the social media machinery: no follower counts, friend counts, no streaks, no
+    leaderboards, no contribution scores, no popularity badges, no "people you may know."
+    The social graph exists internally where a feature needs it to work. <strong>The graph is never
+    the content.</strong></p>
+
+    <h4>No free text anywhere.</h4>
+    <p>No comments, no captions, no DMs, no threads, no reviews. No chat, ever. You want to chat about something? Send a text.</p>
+
+    <p>A limited amount of social interactions, all focusing on music:</p>
+
+    <h4>Record recommendations, where the record is the whole message</h4>
+    <p>You send it. That's the message. No note.</p>
+
+    <p><strong>And that's it.</strong> You don't find out
+    whether they opened it, played it, saved it, binned it, or never saw it because they'd
+    quietly muted the group it came through. Sending music should mean <em>I thought you
+    might like this</em> — not assigning someone homework and then checking whether they did
+    it. You want to react to it? Text them.</p>
+
+    <div class="statement">
+      The way real friends actually share music.
+      <span class="attrib">The whole target, in one line</span>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="rail">Two kinds<br />of relationship</div>
+  <div class="body">
+    <p>There are exactly two, they're different things, and you can have either, both, or
+    neither with any given person.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="plate">
+    <div class="rel">
+      <div class="rel-col">
+        <div class="lbl">Groups</div>
+        <div class="shape">smallish · private · invite link only</div>
+        <ul>
+          <li>A handful of people and a shared monthly playlist.</li>
+          <li>You can be in as many or as few groups as you want. Each group has one creator, 
+          who names the group and sends out a link — then it's fully democratic.</li>
+          <li>No directory, no discovery, no suggested groups, no request-to-join.</li>
+          <li><b>Sharing a group is what lets two people send each other records.</b> No
+          group in common, no recommendation.</li>
+        </ul>
+      </div>
+      <div class="rel-col">
+        <div class="lbl">Needle Sharing</div>
+        <div class="shape">strictly one-to-one with people you trust</div>
+        <ul>
+          <li><b>"Share needles with Jeff."</b> An one-to-one
+          relationship, not a tier or a circle or a friend list.</li>
+          <li>Nobody else can find out that you share needles, who with, how many people,
+          or when it started. There's no graph to look at.</li>
+          <li>Needle sharing allows the two of you see more of each other's actual discovery
+          page.</li>
+          <li>It's the only thing that permits <b>bleed</b>.</li>
+        </ul>
+      </div>
+      <div class="rel-foot">
+        <b>Bleed</b> — This is when listening evidence bleeds across to someone you share needles with.
+        One of your needles shares is listening to an artist that you aren't? That slightly boosts that artist's ranking
+        on your discovery page. The name makes it seem more dramatic than it is.
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 2</b> — The two relationships. Designed, not built. Groups and Needle Shares
+    are independent: you can share needles with someone you're in no group with, and be in
+    a group with someone you don't share needles with.
+  </figcaption>
+</figure>
+
+<div class="block">
+  <div class="rail">The club<br />cont.</div>
+  <div class="body">
+    <!-- <h4>Nobody is getting their feelings hurt</h4> -->
+    <!-- <p>If I ask to share needles with you and you'd rather not, I don't get
+    <em>"Jeff declined."</em> I get nothing, or something deliberately vague — 
+    <em>Jeff doesn't share needles.</em> You should never have to make a statement about
+    a decision like that, and I shouldn't be handed something I can go and litigate. Same
+    with group invites: you just don't join, and the person who sent it doesn't find out you
+    opened it and passed.</p> -->
+
+    <h4>Nobody is getting their feelings hurt. You can leave without leaving</h4>
+    <p>If a group stops being for you, you <strong>mute</strong> it. You're still listed as
+    a member to everyone else, nobody gets a notification, and nobody can tell it's muted.
+    It just stops asking for your attention — recommendations through it silently don't
+    arrive. From the outside, nothing happened.</p>
+    <p>And when you come back six months later, you land in the group as it is <em>now</em>.
+    No pile of homework you missed.</p>
+
+    <h4>And the playlist, obviously</h4>
+    <p>One per month per group, cross-platform this time so nobody's locked out. Opens on
+    the 1st, closes at month's end and freezes into something permanent — <em>March
+    2026</em>, there forever. Your picks have your name on them, because knowing who chose a
+    record is the useful part. Two people picking the same track isn't a collision, it's
+    corroboration, and you both show up.</p>
+    <p>No comments, no votes, no ranking — and nothing that counts who played your song, who
+    skipped it, or who contributed the most popular pick. <strong>It's collaborative
+    selection, not a competition.</strong></p>
+    <p>This is the first social piece I want to build, because we already know it works —
+    we did it for years.</p>
+  </div>
+</div>
+
+<!-- COMMENTED OUT. If re-enabled, this is Fig. 3 and the two figures
+     below it (the two-listener table, the signal path) must bump to 4 and 5.
+<div class="block">
+  <div class="rail">The filter</div>
+  <div class="body">
+    <h4>How I decide whether a social feature is allowed</h4>
+    <p>Every idea gets run past the same questions. Most social features fail at least one,
+    which is the point — this is a list designed to say no.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="plate">
+    <div class="test">
+      <div class="testrow"><div class="q">Does the interaction have music as its object?</div><div class="a">No → reject</div></div>
+      <div class="testrow"><div class="q">Does it reveal something about someone else's private attention?</div><div class="a">Yes → reveal less</div></div>
+      <div class="testrow"><div class="q">Does it create an audience, a status, or a scoreboard?</div><div class="a">Yes → redesign</div></div>
+      <div class="testrow"><div class="q">Could the information be used to pressure somebody?</div><div class="a">Yes → withhold</div></div>
+      <div class="testrow"><div class="q">Could it enable repeated unwanted contact?</div><div class="a">Yes → close it</div></div>
+      <div class="testrow"><div class="q">Does it expose the social graph beyond what the feature needs?</div><div class="a">Yes → hide it</div></div>
+      <div class="testrow"><div class="q">Does someone else's behaviour silently become part of my taste?</div><div class="a">Yes → forbidden</div></div>
+      <div class="testrow soft"><div class="q">Could the same musical outcome happen with less machinery?</div><div class="a">Yes → do that</div></div>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 3</b> — The test every proposed social feature has to pass. The system should
+    know more than it shows; you should control your own attention; and when people
+    interact, the music does the talking.
+  </figcaption>
+</figure> -->
+
+<div class="block">
+  <div class="rail">The rules</div>
+  <div class="body">
+    <h3>Things it will never do</h3>
+    <div class="refusals">
+      <div class="refusal">
+        <div class="x">✕</div>
+        <div>
+          <b>No model writes anything you read about a record.</b>
+          <p>Every caption, and every explanation of why something turned up, is assembled
+          by templates out of database rows. No AI generated descriptions, no summaries, no
+          headlines, no "why this" blurb, no invented comparisons between bands. If a fact
+          isn't in the database, that part of the sentence just doesn't appear.</p>
+        </div>
+      </div>
+      <div class="refusal">
+        <div class="x">✕</div>
+        <div>
+          <b>It never decides what's good.</b>
+          <p>There is an algorithm that ranks your listening that measures directly against your real listening history.
+          How much you've played an artist, how recently,
+          how consistently. That's it.</p>
+        </div>
+      </div>
+      <div class="refusal">
+        <div class="x">✕</div>
+        <div>
+          <b>No black box.</b>
+          <p>The score is stored with its parts broken out, and the caption under every card
+          exists specifically so you can poke at it. If it can't say why something reached
+          you, it doesn't reach you.</p>
+        </div>
+      </div>
+      <div class="refusal">
+        <div class="x">✕</div>
+        <div>
+          <b>It won't manufacture your friendships.</b>
+          <p>No friend suggestions, no group directory, no "people you may know," no
+          graph-based discovery of any kind. Relationships come from outside the app — you
+          already know these people — and the app's job is to support that, not to
+          generate it. The social graph is never mined to grow the social graph.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <h4>OK, the AI question</h4>
+  <p>Yes, there's a language model in here. It acts like a neutral data adjudicator. It is limited to the following actions:
+    It can <strong>work out which known release a
+  candidate is</strong>; <strong>research what genre something is</strong>; <strong>work out
+  whether a label's catalogue is actually curated - Western Vinyl = Yes, Warner Bros = No</strong>; and <strong>work out whether two
+  spellings are the same band.</strong></p>
+  <p>That's it. Four bits of boring librarian work, each one producing a typed answer
+  attached to its evidence, each one something I can overrule by hand in a review queue.
+  It's never asked what's good. Never asked what to recommend. Never asked to write a word.
+  It doesn't even find anything — every release in the feed was turned up by a dumb
+  connector checking a subscribed artist's page and reading structured data off it.</p>
+  <p>There's a test that fails the build if one of those connectors so much as imports the
+  model. That wall is the thing I'd least like to see quietly erode, so I made it noisy.</p>
+</div>
+
+<!-- ============================ PART II ============================ -->
+
+<div class="part">
+  <span class="num">Two</span>
+  <h2>Where it actually is</h2>
+</div>
+
+<div class="block">
+  <div class="rail">The proof</div>
+  <div class="body">
+    <p class="lede">The engine works. Here's the measurement I care about most, pulled off
+    the live database this morning.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="plate">
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Listener</th>
+            <th class="num">Plays observed</th>
+            <th class="num">Artists they subscribe to</th>
+            <th class="num">New albums</th>
+            <th class="num">New singles</th>
+            <th class="num">Calendar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lead">Me</td>
+            <td class="num">203,950</td>
+            <td class="num">2,626</td>
+            <td class="num">12</td>
+            <td class="num">12</td>
+            <td class="num">16</td>
+          </tr>
+          <tr>
+            <td class="lead">Jeff</td>
+            <td class="num">138,706</td>
+            <td class="num">144</td>
+            <td class="num">12</td>
+            <td class="num">12</td>
+            <td class="num">13</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 3</b> — Two people, one shared pile of data, two different feeds, both full.
+    Jeff's collection looks nothing like mine. Every album and single on both pages plays
+    inline — 12 of 12 across the board, no dead ends. Those 144 subscriptions of his were
+    not chosen by him or by me; the system worked them out from his listening this morning.
+  </figcaption>
+</figure>
+
+<div class="block">
+  <div class="rail">Why it matters</div>
+  <div class="body">
+    <p>That table is two separate bets paying off, and it's worth splitting them.</p>
+
+    <p><strong>The shared pile works.</strong> The expensive part — finding and identifying
+    records — happens once for everybody, and your feed is a cheap read over it. Jeff proved
+    that the hard way: for weeks he had <em>zero</em> subscriptions of his own and still had
+    a working front page, entirely from records my subscriptions had dragged in.</p>
+
+    <p><strong>And as of this morning, it does the subscribing itself.</strong> I switched
+    on the piece that turns listening into supply, and it went and subscribed to 144 artists
+    on Jeff's behalf — nobody picked them, they fell out of what he'd played. His page went
+    from 9 albums to 12 and is now level with mine. That's the "hands-free" claim going from
+    a description of the design to a description of the thing.</p>
+
+    <p>That's two of the four things I said had to be true before letting people in.
+    (Proving the <em>cost</em> scales that way still needs more than two of us, and there's
+    still no login.)</p>
+
+    <p>The videos column is zero for both of us because I haven't built video support yet.
+    It shows an empty state saying so, rather than padding itself out.</p>
+  </div>
+</div>
+
+<figure>
+  <div class="plate">
+    <div class="flow">
+      <div class="stage">
+        <div class="idx">01</div>
+        <div class="name">Observe<small>your real listening</small></div>
+        <div class="detail">Last.fm scrobbles land as immutable observations. Append-only; never
+        rewritten, never re-interpreted. <span class="qty">342,656 plays</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">02</div>
+        <div class="name">Identify<small>who is this, really</small></div>
+        <div class="detail">Raw credit strings resolve onto artists, corroborated by MusicBrainz.
+        Anything genuinely ambiguous goes to a human queue rather than being guessed.
+        <span class="qty">14,774 credit strings → 9,493 artists</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">03</div>
+        <div class="name">Model taste<small>how much do you care</small></div>
+        <div class="detail">Play counts become signals, then a blended affinity score normalised
+        to your own maximum, so it works for light and heavy listeners alike.
+        <span class="qty">16,710 signals → 11,532 affinity scores</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">04</div>
+        <div class="name">Acquire supply<small>watch what matters</small></div>
+        <div class="detail">Affinity becomes actual subscriptions at Bandcamp and YouTube.
+        Monotonic — unsubscribe is the only removal.
+        <span class="qty">2,770 artist subscriptions → 407 candidates</span>
+        <span class="chip built">On since 2026-08-09</span></div>
+      </div>
+      <div class="stage hot">
+        <div class="idx">05</div>
+        <div class="name">Judge<small>the only model in the building</small></div>
+        <div class="detail">Four typed judgments on things already found. Never authors, never
+        discovers, never ranks. Uncertain cases escalate to the human queue.
+        <span class="qty">→ 229 typed dated developments</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">06</div>
+        <div class="name">Serve<small>bounded and provable</small></div>
+        <div class="detail">Sections are re-derived at read time from predicates, never stored,
+        so membership is always explainable. Captions composed from stored facts only.
+        <span class="chip built">API built</span> <span class="chip partial">Reader not flipped</span></div>
+      </div>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 4</b> — The signal path, with live row counts. Stage 05 is the only point at
+    which a language model is involved at all, and it operates strictly on things stages
+    01–04 already found deterministically.
+  </figcaption>
+</figure>
+
+<!-- ============================ PART III ============================ -->
+
+<div class="part">
+  <span class="num">Three</span>
+  <h2>The actual maths</h2>
+</div>
+
+<div class="block">
+  <div class="rail">For the<br />data guys</div>
+  <div class="body">
+    <p class="lede">Since a few of you will want to argue with this: here are the real
+    formulas, copied out of the code, weights and all. If the ranking is supposed to be
+    inspectable, that has to include by you.</p>
+
+    <h3>Step one — how much do you care about an artist</h3>
+    <p>Every artist you've played gets a score in [0, 1]. Three terms, fixed weights:</p>
+
+    <div class="formula"><span class="c"># gate: fewer than 6 plays and you don't exist to the model at all</span>
+<span class="k">if</span> effective_plays &lt; <span class="v">6</span>: <span class="k">return</span> <span class="v">0.0</span>
+
+<span class="c"># each term is normalised to YOUR OWN maximum, not a global one</span>
+magnitude(n, n_max) = min( log1p(n) / log1p(n_max), 1.0 )
+
+affinity = <span class="v">0.60</span> · lifetime
+         + <span class="v">0.25</span> · repeat_breadth
+         + <span class="v">0.15</span> · recent_interest
+
+<span class="c"># and a flat floor if you own it in your library</span>
+<span class="k">if</span> owned: affinity = max(affinity, <span class="v">0.10</span>)</div>
+    <span class="src">apps/api/app/taste/affinity.py</span>
+
+    <div class="terms">
+      <div class="term">
+        <div class="w">0.60</div>
+        <div class="d"><b>lifetime</b> — <code>magnitude(total_plays, your_biggest_artist)</code>.
+        Log-scaled, so going from 10 plays to 100 matters far more than 1,000 to 1,090.</div>
+      </div>
+      <div class="term">
+        <div class="w">0.25</div>
+        <div class="d"><b>repeat breadth</b> — did you come back to them? Last.fm:
+        <code>active_weeks / max_active_weeks</code> over a 104-week window. Spotify:
+        <code>0.70·log(years)/log(10) + 0.30·log(months)/log(36)</code>. One period earns
+        nothing — you have to return.</div>
+      </div>
+      <div class="term">
+        <div class="w">0.15</div>
+        <div class="d"><b>recent interest</b> — absolute recent plays, normalised the same
+        way. Deliberately <em>not</em> a share of your lifetime listening, so a heavy old
+        favourite isn't punished for you having moved on this month.</div>
+      </div>
+    </div>
+
+    <h4>Two choices worth flagging</h4>
+    <p><strong>Providers are fused with <code>max()</code>, never added.</strong> Your
+    Spotify streams and your Last.fm scrobbles are frequently <em>the same play counted
+    twice</em>. Each provider is normalised independently and then the components are
+    combined by taking the larger — adding them would double-count anyone who ran both.</p>
+    <p><strong>Everything is normalised to your own ceiling.</strong> There's no global
+    play-count scale, so someone with 200,000 scrobbles and someone with 4,000 get the same
+    spread of scores. It's a rank over your listening, not a measure of how much you listen.</p>
+    <p>And the honest cost of that 6-play gate: on real data it zeroes 73 of 449 Last.fm
+    signals — about 16%. An artist you just started playing stays invisible until the sixth
+    play. That price is paid entirely by new-artist discovery, which is the half of this
+    model that needs the most work.</p>
+
+    <h3>Step two — what order things appear in</h3>
+    <p>Artist affinity is one of five terms in the score that actually sorts your feed:</p>
+
+    <div class="formula">relevance = <span class="v">0.55</span> · artist_affinity
+          + <span class="v">0.15</span> · label_trust
+          + <span class="v">0.10</span> · genre_affinity
+          + <span class="v">0.10</span> · event_weight
+          + <span class="v">0.10</span> · corroboration
+
+corroboration = min( log10(mentions + 1) / log10(6), 1.0 )
+
+event_weight = { released <span class="v">1.0</span> · reissued <span class="v">0.8</span> · announced <span class="v">0.7</span>
+                 single <span class="v">0.5</span> · concert <span class="v">0.4</span> · artist-only <span class="v">0.3</span> }
+
+<span class="c"># no genre data is NOT the same as bad genre match</span>
+genre_affinity = <span class="v">0.5</span> <span class="k">if</span> unknown <span class="k">else</span> measured_value</div>
+    <span class="src">apps/api/app/ranking/relevance.py</span>
+
+    <p>That <code>0.5</code> neutral is a real distinction, not a fudge. <em>"We've never
+    classified this record"</em> and <em>"we classified it and you don't like this genre"</em>
+    are different facts, and collapsing them would either punish everything we haven't got
+    round to tagging or flatter genres you've shown no interest in.</p>
+
+    <div class="note">
+      <h4>The part I'd want you to poke at</h4>
+      <p>At a weight of 0.55, <code>artist_affinity</code> is structurally <strong>0.0 for
+      any artist you've never played.</strong> So a total stranger's maximum possible
+      relevance is 0.45, no matter how good the record is or how much you trust the label.</p>
+      <p>That's deliberate — I wanted a proven listening signal to beat a label-backed
+      unknown — but it means <strong>this blend does not serve new-artist discovery at
+      all</strong>, and I know it. When I last measured, the best-placed unknown artist sat
+      at rank 41 of 45, with none in the top ten. Fixing that properly is open work, and
+      it's the bit I'd most like someone to have opinions about.</p>
+    </div>
+
+    <h3>Step three — how much evidence is behind it</h3>
+    <p>Separately from the score, every artist you've played lands in a band, and the bands
+    are what let a card say <em>how strongly</em> it knows something:</p>
+
+    <div class="terms">
+      <div class="term">
+        <div class="w">Established</div>
+        <div class="d">Above the crossover rank. Sustained listening; the evidence stands
+        on its own.</div>
+      </div>
+      <div class="term">
+        <div class="w">Emerging</div>
+        <div class="d">Below the crossover, but artists you <em>are</em> established on point
+        at them. Light listening, corroborated.</div>
+      </div>
+      <div class="term">
+        <div class="w">Inferred</div>
+        <div class="d">Never played at all. Ranked on a different scale entirely, and can
+        only leave this band by you actually playing them — being surfaced never promotes
+        anything, or the system's guesses become its own evidence.</div>
+      </div>
+    </div>
+
+    <p>The crossover isn't a constant. It's found per person by walking down your ranked
+    artists and asking where corroboration falls off. Two details from building it:</p>
+    <ul>
+      <li><strong>Corroboration is boolean, not counted.</strong> We measured that the vote
+      <em>count</em> is noise across a thirtyfold range, while having <em>any</em> vote does
+      real work. So it's "does anything point here," not "how many things."</li>
+      <li><strong>There is no play-count floor on Emerging, on purpose.</strong> One play
+      plus corroboration is genuinely weak evidence, and the honest way to say that is to
+      rank it last — not to invent a threshold that looks rigorous and isn't.</li>
+    </ul>
+
+    <p>And one thing I'm oddly proud of: the corroboration step costs API calls, so it's
+    budgeted. If the budget — rather than your data — is what determined where the crossover
+    landed, <strong>the whole run refuses and reports nothing</strong> instead of returning
+    a number that's really an artifact of a cost limit. That bug nearly shipped once.</p>
+
+    <p>Every one of these numbers is a constant in a file with a comment explaining what it
+    was calibrated against and what it costs. None of them are tuned per-user, none of them
+    move on their own, and no model has ever touched any of them.</p>
+  </div>
+</div>
+
+<div class="part">
+  <span class="num">Four</span>
+  <h2>The ledger</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Shipped</div>
+  <div class="body">
+    <h3>Built, tested, running on real data <span class="chip built">Done</span></h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Subsystem</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td class="lead">Listening ingestion</td><td>Full Last.fm history import, resumable. 342,656 plays across two listeners.</td></tr>
+          <tr><td class="lead">Identity resolution</td><td>Credit resolution, artist dedup, MusicBrainz mapping, standing human review queue. <strong>95.6%</strong> and <strong>96.2%</strong> play-weighted coverage.</td></tr>
+          <tr><td class="lead">Taste model</td><td>Signals → affinity, self-normalised per listener. Evidence bands: Established, Emerging, Inferred.</td></tr>
+          <tr><td class="lead">Supply connectors</td><td>Bandcamp and YouTube follow-polling. Fully deterministic, zero model cost. Both switched on.</td></tr>
+          <tr><td class="lead">Judgment gateway</td><td>Four typed methods, three backends, every verdict supersedable by a person.</td></tr>
+          <tr><td class="lead">Serving API</td><td>Today, Everything, Calendar, channel queues, channel preferences.</td></tr>
+          <tr><td class="lead">Caption composer</td><td>Deterministic provenance on every card. No evidence row, no clause.</td></tr>
+          <tr><td class="lead">Content exclusions</td><td>Compilations, reissues, archival and catalogue never reach any surface.</td></tr>
+          <tr><td class="lead">Text feed</td><td><code>python -m app.cli today</code> — works right now, and is how we read it daily.</td></tr>
+          <tr><td class="lead">Safety controls</td><td>Snapshot-before-write, single-use review tokens, rollback, harness-level deny list, a data-regression check that refuses to re-baseline itself.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="rail">Partial</div>
+  <div class="body">
+    <h3>Real code, not yet delivering value <span class="chip partial">In flight</span></h3>
+
+    <h4>The nightly cascade — built, run by hand, not yet nightly</h4>
+    <p>The chain that makes new listening rebuild everything downstream: vocabulary,
+    identity, signals, affinity, ranking, supply. Eight ordered phases. It works — running
+    it today is what took Jeff from 0 subscriptions to 144 and lifted his identity coverage
+    from 87% to 96%.</p>
+    <p>What's missing is letting it run <em>unattended</em>. There's a control that refuses
+    to start the nightly job until two safety bounds are measured — how many new
+    subscriptions a night is sane, and how much the model may spend without me watching —
+    and those numbers have to come from real data rather than my imagination. So for now I
+    run it myself and read the output.</p>
+
+    <h4>The watch reconciler — on</h4>
+    <p>The piece that turns taste into subscriptions. Switched on today, and it's what put
+    those 144 artists on Jeff's radar.</p>
+
+    <h4>The front-end flip — the reader points at the old page</h4>
+    <p>The entire new serving backend is built and tested. The web app still reads the
+    legacy endpoint, so <strong>nobody can see the new front page in a browser</strong> —
+    only through the command line. This is the single highest-leverage piece of unbuilt
+    work in the repository, and it is mostly front-end.</p>
+
+    <h4>Artist scope — 18,768 rows, deliberately frozen</h4>
+    <p>Built, materialised, then consciously parked because nothing consumes it. Noted here
+    so nobody helpfully wires it in. I froze it rather than keep polishing a layer — that judgment call is itself part of how this project runs.</p>
+  </div>
+</div>
+
+<div class="block">
+  <div class="rail">Absent</div>
+  <div class="body">
+    <h3>Not built <span class="chip absent">To do</span></h3>
+
+    <h4>Blocking an alpha</h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Gap</th><th>What it means today</th></tr></thead>
+        <tbody>
+          <tr><td class="lead">No authentication</td><td>There is no login, no session, no privacy boundary. Two listeners exist in one database because we put them there by hand.</td></tr>
+          <tr><td class="lead">No hosting</td><td>Everything runs on one laptop against a local database. No deployment, no domain, no scheduler in the cloud.</td></tr>
+          <tr><td class="lead">No onboarding</td><td>A new person cannot connect their own Last.fm account through any interface. It's a config value.</td></tr>
+          <tr><td class="lead">Reader not flipped</td><td>See above — the new backend has no front end.</td></tr>
+          <tr><td class="lead">Single-user operator commands</td><td>Several maintenance commands are hardcoded to the first user and would write one listener's data using another's credentials. Known, tracked, must be fixed before a third account exists.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Designed and specified, not started</h4>
+    <ul>
+      <li><strong>Video and live-session supply.</strong> Full design plus a KEXP-first slice, with the parser already proven against real uploads — it found a title format the spec had missed. Zero code. This is why the videos channel is empty.</li>
+      <li><strong>Spotify history as individual plays.</strong> An imported Spotify history was loaded as pre-summed totals rather than dated plays, so about 78% of that record is missing from every measurement made so far. Re-importing it as events would sharpen the taste model considerably.</li>
+      <li><strong>Label qualification</strong> — the best route to artists you've never played.</li>
+      <li><strong>The entire social layer</strong> — Needle Sharing, Groups, weekly reports, the monthly mix. Fully designed, deliberately not started until the personal product is good on its own.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================ PART IV ============================ -->
+
+<div class="part">
+  <span class="num">Five</span>
+  <h2>The road to an alpha</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Ordered by<br />dependency</div>
+  <div class="body">
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <div>
+          <h4>Let the engine run on its own</h4>
+          <p>Mostly done — the chain works and I ran it today, which is where Jeff's 144 subscriptions came from. What's left is measuring the two safety bounds so it can run overnight without me watching it, and then leaving it alone for a week to see what it does.</p>
+          <span class="tag">Days · mostly measurement · low risk</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <div>
+          <h4>Point the reader at the new backend</h4>
+          <p>The dashboard: five channels, bounded, each a playable queue. Card anatomy, inline preview, the queue interaction. The API contract is frozen and generated into a typed client, so this is real front-end work rather than API archaeology.</p>
+          <span class="tag">The largest single unlock</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <div>
+          <h4>Auth, hosting, onboarding</h4>
+          <p>Login and a privacy boundary. Deploy the API, the web app, the database, the nightly job. A real "connect your Last.fm" flow. Fix the single-user operator commands first.</p>
+          <span class="tag">The platform work</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <div>
+          <h4>Video and live sessions</h4>
+          <p>The KEXP slice first — strongest demand evidence in the backlog, including a session by an artist with 255 plays that sat one day old in a feed we don't poll.</p>
+          <span class="tag">Makes it feel complete</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="n">5</div>
+        <div>
+          <h4>Let people in</h4>
+          <p>Four criteria: two users get demonstrably different explainable feeds from one corpus; a new user reaches a useful first session with no local library; private data cannot leak; ingestion cost scales with the corpus, not users × sources. <strong>The first is already met.</strong></p>
+          <span class="tag">Criteria 2–4 are steps 1–3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ PART V ============================ -->
+
+<div class="part">
+  <span class="num">Six</span>
+  <h2>If you want in</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Pick one</div>
+  <div class="body">
+    <p class="lede">There's no wrong size of involvement here. Genuinely — "I'll use it and
+    complain" is a real contribution and probably the one I need most.</p>
+
+    <div class="roles wide">
+      <div class="role">
+        <h4>Just use it</h4>
+        <p>Give me a Last.fm account and be a third person in the system. Every number in
+        here is tuned against two record collections, which is not many. A third one that
+        looks nothing like ours is how I find out what I've accidentally built around my
+        own taste. This is the easiest ask and possibly the most useful.</p>
+      </div>
+      <div class="role">
+        <h4>Tell me it's wrong</h4>
+        <p>Look at your feed and tell me what's stupid about it. Why is that on there? Why
+        isn't this? That's a real job, it needs zero code, and you all have better ears than
+        I do. Half the good decisions in here came from someone saying "that looks off"
+        about a specific record.</p>
+      </div>
+      <div class="role">
+        <h4>Build the front end</h4>
+        <p>Biggest single unlock by a distance. The server side is finished and typed; the
+        page you'd actually look at isn't. If you like making dense, information-heavy
+        things feel easy, you'd move this further in a couple of weekends than anything else
+        on the list. There's a look sketched out — you're reading it — but it's a first
+        instinct, not a decision. Argue with it.</p>
+      </div>
+      <div class="role">
+        <h4>Get it hosted</h4>
+        <p>It runs on my laptop. It needs to run somewhere real: a database, a Python API, a
+        Next.js app, one nightly job. Nothing exotic, but it's nobody's job right now and it
+        blocks everything else.</p>
+      </div>
+      <div class="role">
+        <h4>Nerd out on the data</h4>
+        <p>The genuinely fun problems in here are identity problems. Is "Avalon Emerson &amp;
+        the Charm" the same act as "Avalon Emerson"? Is this Topic-channel upload a real
+        release or noise? These get settled by measuring something, and every answer gets
+        written down.</p>
+      </div>
+      <div class="role">
+        <h4>Just be interested</h4>
+        <p>Honestly, telling me this is worth finishing is worth something. I've been at it
+        a while. If your only involvement is getting the monthly playlist going again on a
+        thing I built, that's a completely good outcome and the reason it exists.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+  <div class="rail">Fair warning</div>
+  <div class="body">
+    <h3>How I've been working on it</h3>
+    <p>Four habits, each one the result of screwing something up:</p>
+    <ul>
+      <li><strong>Numbers get measured, not remembered.</strong> There's a script for it, and
+      quoting a figure without running it counts as a mistake. This came from a day I lost
+      to the same data being "47% covered" and "92.4% covered" depending on what you divided
+      by — both true, one of them terrifying and completely wrong for the decision I was
+      making.</li>
+      <li><strong>If something's missing, go check the source.</strong> An empty field in my
+      database tells you about my code, not about the world. Before anyone says "the API
+      doesn't give us that," they go make the API call.</li>
+      <li><strong>Nothing's done until it's switched on and checked against real data.</strong>
+      Tests passing and a page rendering correctly are not, on their own, worth anything.</li>
+      <li><strong>The database is protected by actual controls, not by me being careful.</strong>
+      One command I didn't review properly wrote 2,429 junk rows into a queue that had one
+      real thing in it. The fix wasn't a sterner note to self — there was already a note to
+      self. It was a snapshot wrapper and a hard block on the commands that write.</li>
+    </ul>
+    <p>That probably reads as a lot. It's actually the opposite in practice: nearly every
+    hard call has a dated write-up saying what I tried and what I measured, so you can
+    disagree with any of it on the merits instead of guessing what I was thinking. There
+    are 48 of those.</p>
+  </div>
+</div>
+
+<!-- ============================ APPENDIX ============================ -->
+
+<div class="part">
+  <span class="num">Appendix</span>
+  <h2>Measured figures</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Corpus<br />2026-08-09</div>
+  <div class="body wide">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Table</th><th class="num">Rows</th><th>What it answers</th></tr></thead>
+        <tbody>
+          <tr><td class="lead">listens</td><td class="num">342,656</td><td>raw play observations, append-only</td></tr>
+          <tr><td class="lead">listen_credits</td><td class="num">14,774</td><td>distinct raw credit strings seen</td></tr>
+          <tr><td class="lead">artists</td><td class="num">9,493</td><td>the vocabulary everything downstream inherits</td></tr>
+          <tr><td class="lead">user_artist_signals</td><td class="num">16,710</td><td>per-provider taste signals</td></tr>
+          <tr><td class="lead">user_artist_affinity</td><td class="num">11,532</td><td>blended taste scores</td></tr>
+          <tr><td class="lead">user_follows</td><td class="num">2,770</td><td>the acquisition radar</td></tr>
+          <tr><td class="lead">extracted_candidates</td><td class="num">407</td><td>what polling actually found</td></tr>
+          <tr><td class="lead">developments</td><td class="num">229</td><td>typed dated things that happened</td></tr>
+          <tr><td class="lead">artist_scope_projection</td><td class="num">18,768</td><td>frozen, read by nothing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Identity coverage — two denominators, because they answer different questions</h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Listener</th><th class="num">Play-weighted<br /><span style="font-weight:400;text-transform:none;letter-spacing:0">what ranking consumes</span></th><th class="num">Credit-weighted<br /><span style="font-weight:400;text-transform:none;letter-spacing:0">what review consumes</span></th></tr></thead>
+        <tbody>
+          <tr><td class="lead">Me</td><td class="num">95.6%</td><td class="num">63.3%</td></tr>
+          <tr><td class="lead">Jeff</td><td class="num">96.2%</td><td class="num">83.9%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);max-width:40rem">Reporting one of those
+    without the other is how an afternoon gets lost. They are printed side by side, always.</p>
+
+    <h4>Capabilities, as actually configured</h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Capability</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td class="lead">Bandcamp connector</td><td><span class="chip built">On</span></td></tr>
+          <tr><td class="lead">YouTube connector</td><td><span class="chip built">On</span></td></tr>
+          <tr><td class="lead">Admin endpoints</td><td><span class="chip built">On</span></td></tr>
+          <tr><td class="lead">Watch reconciler</td><td><span class="chip built">On</span></td></tr>
+          <tr><td class="lead">Nightly cascade</td><td><span class="chip partial">Runs by hand — unattended mode pending measured bounds</span></td></tr>
+          <tr><td class="lead">Coverage regression gate</td><td><span class="chip partial">Off — enables with the cascade</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);max-width:40rem">A flag is not evidence.
+    Each of these is cross-checked against when the capability last actually ran, because a
+    document once said the nightly job was on while it had been off for two days.</p>
+
+    <h4>Engineering</h4>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th class="num">Figure</th><th>Measure</th></tr></thead>
+        <tbody>
+          <tr><td class="num">797</td><td>commits</td></tr>
+          <tr><td class="num">52,371</td><td>lines of application Python</td></tr>
+          <tr><td class="num">78</td><td>database migrations</td></tr>
+          <tr><td class="num">2,397</td><td>backend tests passing</td></tr>
+          <tr><td class="num">48</td><td>dated design specifications</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer class="end">
+  <span>The Needle Exchange</span>
+  <span>Prospectus &amp; field report</span>
+  <span>2026-08-09</span>
+  <span>Fig. 1 is a mock</span>
+</footer>
+
+</div>

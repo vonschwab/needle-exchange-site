@@ -767,7 +767,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
       <p><strong>It never writes anything you read.</strong> Every sentence on a card is assembled from
       templates over stored facts. It never finds a release; a plain program reading an artist&rsquo;s
       page does that. It never ranks or recommends. It makes no music and no images.</p>
-      <p>A test fails the build if the code that reads Bandcamp pages so much as imports the model.
+      <p>A test fails the build if the Bandcamp connector imports the model module, and none of the code that reads Bandcamp uses it.
       That wall is the thing I least want to see erode, so I made it noisy.</p>
     </div>
   </div>
@@ -854,15 +854,15 @@ table.data td.lead { color: var(--ink); width: 17rem; }
           </tr>
           <tr>
             <td class="lead">Discography listing: release id, album or track, title, cover id, release date, band name</td>
-            <td>One request per followed page when it is polled, to the mobile-app band endpoint. Paced at least 3 seconds apart by default.</td>
+            <td>One request per followed page when it is polled, to the mobile-app band endpoint. Once a night, plus a late-morning pass for artists with a release due or just out. About one request a second; on any resume I would slow that to one every three seconds, or whatever Bandcamp prefers.</td>
             <td>To notice that something new exists.</td>
             <td>A new item becomes a candidate release, and nothing reaches a listener until the later checks pass. The page is read once for everybody, not once per listener.</td>
           </tr>
           <tr>
             <td class="lead">Release details: label, pre-order flag, tags, the release&rsquo;s own artist, title, track list with durations, whether any track streams</td>
-            <td>One request per candidate release, to the mobile-app release endpoint.</td>
+            <td>One request per new release, to the mobile-app release endpoint, stored whole. A release still on pre-order is re-checked on later nights until it goes live.</td>
             <td>To credit the right artist (a side project can sit on another band&rsquo;s page), to tell a single from an EP or an album by runtime and track count, and to know whether a player can play it.</td>
-            <td>Shown on the card: title, label, type, date. Used to keep singles off the calendar and to decide when a play button is offered. The whole response is stored, so a page is not fetched twice.</td>
+            <td>Shown on the card: title, label, type, date. Used to keep singles off the calendar and to decide when a play button is offered.</td>
           </tr>
           <tr>
             <td class="lead">Upcoming shows: city, venue, date, ticket link</td>
@@ -872,7 +872,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
           </tr>
           <tr>
             <td class="lead">Artist photo id</td>
-            <td>Carried in the same band response. No extra request.</td>
+            <td>Carried in the same band response, no extra request. Where Bandcamp has no photo, Deezer&rsquo;s, by the artist id MusicBrainz lists.</td>
             <td>To put a face on a Discovery card for an artist.</td>
             <td>Shown on Discovery artist cards.</td>
           </tr>
@@ -882,11 +882,17 @@ table.data td.lead { color: var(--ink); width: 17rem; }
             <td>So that listening and buying happen on Bandcamp.</td>
             <td>Covers on every card. The player, with its own buy button, in an opened card.</td>
           </tr>
+          <tr>
+            <td class="lead">Bandcamp&rsquo;s public search and its public HTML pages</td>
+            <td>The same search suggestions the site&rsquo;s own search box uses, and plain reads of artist and release pages, including a label&rsquo;s discography.</td>
+            <td>To find a release&rsquo;s page, cover and canonical address, and to confirm a page belongs to the artist.</td>
+            <td>Gives a release its Bandcamp link and cover, and keeps a follow attached to the right page. Paused with everything else.</td>
+          </tr>
 
           <tr class="grp"><th colspan="4">YouTube</th></tr>
           <tr>
             <td class="lead">An artist&rsquo;s channel</td>
-            <td>The channel MusicBrainz lists for the artist, or the Data API&rsquo;s search for the artist&rsquo;s auto-generated &ldquo;Topic&rdquo; channel.</td>
+            <td>The channel MusicBrainz lists for the artist, the Data API&rsquo;s search for the artist&rsquo;s auto-generated &ldquo;Topic&rdquo; channel, or its channels lookup to resolve an @handle in a curated import.</td>
             <td>To follow the place an artist&rsquo;s videos, live sessions and official audio appear.</td>
             <td>A followed channel is polled for new uploads.</td>
           </tr>
@@ -912,7 +918,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
           </tr>
           <tr>
             <td class="lead">Artist detail: official-page links (Bandcamp, YouTube, Deezer), links to other artists (members, side projects, same act), area, country, type</td>
-            <td>One lookup per artist, paced at 1 request a second as MusicBrainz asks, and cached.</td>
+            <td>One lookup per artist, no faster than one request every two seconds, and cached.</td>
             <td>To follow an artist&rsquo;s own official page rather than a search&rsquo;s best guess, and to find their other bands.</td>
             <td>Attaches a follow to the right Bandcamp or YouTube page. Feeds Discovery&rsquo;s &ldquo;their bands and side projects&rdquo;.</td>
           </tr>
@@ -940,17 +946,18 @@ table.data td.lead { color: var(--ink); width: 17rem; }
   </div>
   <figcaption>
     <b>Fig. 6</b> &mdash; Fields are listed as the app reads them today. Every MusicBrainz answer is stored as a
-    snapshot, never as the authority: nothing it says overwrites our own records directly.
+    snapshot and used as evidence: it changes a record only through a recorded, reversible decision.
   </figcaption>
 </figure>
 
 <div class="block">
   <div class="rail">Also read</div>
   <div class="body">
-    <p>Three other things come in. The listener&rsquo;s own plays from <strong>Last.fm</strong>, by
-    username. A <strong>Spotify history file</strong> the listener uploads, which is deleted after its plays are
-    read. And <strong>Deezer</strong> and the <strong>Cover Art Archive</strong>, used for artist photos and
-    to check that a record is credited to the right artist.</p>
+    <p>Three other things come in. From <strong>Last.fm</strong>: the listener&rsquo;s plays, by
+    username, and public artist data (similar artists, tags, name corrections). A <strong>Spotify history
+    file</strong> the listener uploads, which is deleted after its plays are read. And <strong>Deezer</strong>,
+    <strong>iTunes Search</strong> and the <strong>Cover Art Archive</strong>, for covers and artist photos, with
+    Deezer also used to check a record&rsquo;s credited artist.</p>
   </div>
 </div>
 
@@ -970,10 +977,10 @@ table.data td.lead { color: var(--ink); width: 17rem; }
       <table>
         <thead><tr><th>Part</th><th>State</th></tr></thead>
         <tbody>
-          <tr><td class="lead">News feed</td><td><span class="chip built">Working</span> Albums, singles, videos and live sessions, ranked by your own listening.</td></tr>
+          <tr><td class="lead">News feed</td><td><span class="chip built">Working</span> Albums, singles, videos and live sessions, ranked by your own listening. (New Bandcamp releases paused, see Two.)</td></tr>
           <tr><td class="lead">Release calendar</td><td><span class="chip built">Working</span> Upcoming albums by release week.</td></tr>
           <tr><td class="lead">Discovery</td><td><span class="chip built">Working</span> Two rows, each card with its reasons.</td></tr>
-          <tr><td class="lead">Concerts</td><td><span class="chip built">Working</span> Upcoming shows for artists you play, in a city you pick.</td></tr>
+          <tr><td class="lead">Concerts</td><td><span class="chip built">Working</span> Upcoming shows for artists you play, in a city you pick. (New Bandcamp dates paused, see Two.)</td></tr>
           <tr><td class="lead">Listen later and hide</td><td><span class="chip built">Working</span></td></tr>
           <tr><td class="lead">Reading Bandcamp pages</td><td><span class="chip partial">Paused</span> Off until Bandcamp says how it would like this done.</td></tr>
           <tr><td class="lead">Public hosting</td><td><span class="chip partial">In progress</span> It runs on my own hardware today.</td></tr>

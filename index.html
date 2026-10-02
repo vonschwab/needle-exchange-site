@@ -1,6 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Needle Exchange — Prospectus &amp; Field Report</title>
+<title>The Needle Exchange</title>
+<meta name="description" content="A music news feed and discovery shelf built from what you actually listen to. New releases from the artists you play, each saying exactly why it is there. Most of it lives on Bandcamp." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Needle Exchange" />
+<meta property="og:description" content="New music from the artists you actually listen to, each item saying exactly why it is there. A private alpha." />
+<meta property="og:image" content="https://theneedle.exchange/img/og.jpg" />
+<meta property="og:url" content="https://theneedle.exchange/" />
+<meta name="twitter:card" content="summary_large_image" />
 <style>
 /* ============================================================
    THE NEEDLE EXCHANGE — prospectus & field report
@@ -491,23 +501,51 @@ footer.end {
 @media (prefers-reduced-motion: no-preference) {
   .card, .role { transition: opacity .2s ease; }
 }
-</style>
 
+/* ---------- 2026-10-02 additions ---------- */
+.skip { position: absolute; left: -999px; top: 0; background: var(--paper); color: var(--ink); padding: .5rem .8rem; z-index: 10; }
+.skip:focus { left: .5rem; top: .5rem; outline: 2px solid var(--accent); }
+.plate.shot { padding: 0; }
+.plate.shot img { display: block; width: 100%; height: auto; }
+.plate.shots2 { display: grid; grid-template-columns: repeat(2, minmax(0, 20rem)); gap: 1.4rem; justify-content: center; }
+.plate.shots2 img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+@media (max-width: 640px) { .plate.shots2 { grid-template-columns: minmax(0, 1fr); } }
+.rel.three { grid-template-columns: repeat(3, minmax(0, 1fr)); min-width: 48rem; }
+@media (max-width: 800px) { .rel.three { grid-template-columns: minmax(0, 1fr); min-width: 0; } .rel.three .rel-col { border-right: 0; border-bottom: 1px solid var(--rule-hair); } }
+.rel-col .shape .chip { margin-left: .4rem; }
+.roles.two { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.role ul { padding-left: 1.1rem; margin: 0; max-width: none; }
+.role li { font-size: .92rem; color: var(--ink-soft); }
+.role li b { color: var(--ink); font-weight: 600; }
+
+table.data { min-width: 56rem; font-size: .86rem; }
+table.data td, table.data th { padding-right: 1.1rem; }
+table.data tr.grp th { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: .5rem .7rem; border-bottom: 1px solid var(--rule); }
+table.data td { color: var(--ink-soft); }
+table.data td.lead { color: var(--ink); width: 17rem; }
+.plate.wide { padding: 1rem 1.2rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
 <div class="sheet">
 
 <header class="masthead">
-  <p class="kicker">A note to a few friends · August 2026</p>
+  <p class="kicker">A private alpha &middot; October 2026</p>
   <h1>The Needle&nbsp;Exchange</h1>
-  <p class="deck">I have been building something. Two things at once: a listening based music news & discovery
-  feed that replaces streaming algorithms, and a replacement for the Spotify collaborative
-  playlist. Here's what it is, what already works, and how you could help if any of it sounds fun.</p>
+  <p class="deck">A music news feed and discovery shelf built from what you actually listen to. It tells you
+  when the artists you play put something out, shows you artists beside your listening that you haven&rsquo;t
+  heard yet, and says exactly why each thing is there. Most of it lives on Bandcamp, and it is built to send
+  people there to listen and to buy, not to keep them.</p>
 </header>
 <div class="colophon">
-  <span>Written 2026-08-09 · revised 2026-08-12</span>
-  <span>Every number measured on Aug 12th</span>
+  <span>Updated 2026-10-02</span>
+  <span>Screens are the working app, on the author&rsquo;s own listening</span>
 </div>
 
-<!-- ============================ PART I ============================ -->
+<main id="main">
+
+<!-- ============================ ONE ============================ -->
 
 <div class="part">
   <span class="num">One</span>
@@ -517,972 +555,444 @@ footer.end {
 <div class="block">
   <div class="rail">Start here</div>
   <div class="body">
-    <p class="lede">You remember the monthly playlist? We each posted five tracks every month.
-    It wasn't a competition or a performance. Just a place to earnestly post what we were
-    actually listening to. <strong>That was a pretty great music recommendation
-    system</strong>, and it died when most of us left Spotify.</p>
+    <p class="lede">Streaming services had the right idea: use what someone really listens to
+    to work out what they would want next. Then the idea was corrupted &mdash; paid playlist slots,
+    rankings nobody can inspect, AI filler. <strong>This is the same idea without any of that.</strong>
+    It reads your listening, tells you what is new from the artists you play, and shows its working.</p>
+    <p>It hosts no music and sells none. It points you at the artist&rsquo;s own page, and when someone buys
+    there, the artist and label are paid.</p>
+  </div>
+</div>
 
-    <p>This started as me trying to recreate that, but I got obsessed and accidentally turned
-    it into something slightly more ambitious.</p>
+<figure>
+  <div class="plate shot">
+    <img src="img/today-desktop.jpg" width="1280" height="700"
+      alt="The Today page: new albums from artists the listener plays, as a row of large covers, each with the artist, title, release date and label." />
+  </div>
+  <figcaption>
+    <b>Fig. 1</b> &mdash; Today. New albums from artists this listener plays, ranked by that listener&rsquo;s
+    own listening. This is the working app, not a mock.
+  </figcaption>
+</figure>
+
+<div class="block">
+  <div class="rail">The shape</div>
+  <div class="body">
+    <p>Three parts. The first two work today. The third is designed and comes after.</p>
   </div>
 </div>
 
 <figure>
   <div class="plate">
-    <div class="rel">
+    <div class="rel three">
       <div class="rel-col">
-        <div class="lbl">The feed</div>
-        <div class="shape">discovery without the bullshit</div>
+        <div class="lbl">The news feed</div>
+        <div class="shape">new from the artists you play <span class="chip built">Working</span></div>
         <ul>
-          <li>Reads what you <b>actually play</b>.</li>
-          <li>Works out which artists and labels matter to you, and subscribes to them
-          across the real music web: Bandcamp, YouTube, wherever they live.</li>
-          <li>Your favorite artist releases a single? You find out. An artist you like is on KEXP?
-            We show you.</li>
-          <li>There is a front page you can <b>finish</b>, not an endless firehose.</li>
-          <li>Every recommendation can prove why it's there with numbers.</li>
+          <li>Reads your <b>Last.fm listening</b>, plus a Spotify history export if you have one.</li>
+          <li>Works out which artists and labels matter to you, and <b>watches their pages</b>
+          for you: Bandcamp for releases, YouTube for videos and live sessions.</li>
+          <li>New albums, new singles, videos and live sessions, and a <b>release calendar</b>.</li>
+          <li>A page you can <b>finish</b>, not a firehose.</li>
+          <li>Upcoming concerts for the artists you play, in a city you choose.</li>
         </ul>
       </div>
       <div class="rel-col">
-        <div class="lbl">The playlist</div>
-        <div class="shape">the monthly mix, back from the dead</div>
+        <div class="lbl">Discovery</div>
+        <div class="shape">artists beside your listening <span class="chip built">Working</span></div>
         <ul>
-          <li>One shared playlist per month per group, <b>cross-platform</b> this time, so
-          nobody's locked out by their streaming service.</li>
-          <li>Paste streaming links into the site, export a playlist for your streaming service</li>
-          <li>Automaticaly archived - <i>March 2026</i>, there forever.</li>
+          <li>Pulled from the artists you play, <b>their record labels</b>, their bands and side
+          projects, and similar artists.</li>
+          <li>Two rows: more of what you have been playing lately, and artists adjacent to
+          listening you have left alone for a while.</li>
+          <li>Rows run short rather than pad themselves out.</li>
+          <li>Hiding a record or an artist changes what you are shown. It teaches the app nothing about your taste.</li>
         </ul>
       </div>
-      <div class="rel-foot">
-        <b>The bet</b> — the two halves feed each other. The feed keeps your listening
-        interesting; the playlist is where you show the others what you found. That loop is
-        the product.
+      <div class="rel-col">
+        <div class="lbl">Social, kept quiet</div>
+        <div class="shape">two kinds of relationship <span class="chip absent">Designed, not built</span></div>
+        <ul>
+          <li><b>An Exchange</b>: strictly between two people. A friend&rsquo;s listening can
+          nudge your Discovery, and the card says whose.</li>
+          <li><b>Groups</b>: small, private, invitation link only.</li>
+          <li><b>No chat, no counts, no read receipts.</b> You never learn who saw what.</li>
+          <li>Nobody can find out who is in an Exchange or a Group, or how many.</li>
+        </ul>
       </div>
     </div>
   </div>
   <figcaption>
-    <b>Fig. 1</b> — The two halves, equal billing. The feed is running today on real data;
-    the playlist is fully designed and is the first social piece that gets built — because
-    we already know it works. We did it for years.
+    <b>Fig. 2</b> &mdash; The news feed and Discovery are in daily use. The social layer exists
+    as a written design and nothing else.
   </figcaption>
 </figure>
 
-<div class="block">
-  <div class="rail">Why bother</div>
-  <div class="body">
-    <h3>Leaving Spotify was the right move</h3>
+<!-- ============================ TWO: BANDCAMP ============================ -->
 
-    <p>Spotify had a genuinely good idea: use what somebody actually listens to
-    to predict what they might want next. Then that idea got corrupted through a bunch of predictable
-    corporate bullshit — pay-to-play playlist slots, blackbox algorithm manipulation, AI-generated filler,
-    all while paying artists virtually nothing and sending their money to the military industrial complex.
-    Absolutely repulsive stuff.</p>
-
-    <p>Let's start with the same idea, except that we don't let it get all fucked up. I built an app that reads what you actually
-    play (via Last.fm), works out which artists and labels matter to you, subscribes to them across the
-    web (Bandcamp and YouTube, for now) and tells you
-    when something new lands. <strong>It doesn't host any music.</strong> It just points you
-    at new music.</p>
-
-    <div class="statement">
-      An important data rule: every single recommendation can say why it's there.
-      Not in a vague "because you listened to X" way, but an actual provenance trail you can open and read.
-    </div>
-  </div>
+<div class="part">
+  <span class="num">Two</span>
+  <h2>How it works with Bandcamp</h2>
 </div>
 
 <div class="block">
-  <div class="rail">The feed</div>
+  <div class="rail">The position</div>
   <div class="body">
-    <h3>This isn't Letterboxd for music</h3>
+    <p class="lede">My aim is for this to feed Bandcamp, not compete with it.</p>
+    <p>Most of what it surfaces is a release on a Bandcamp artist or label page. It reaches the people
+    most likely to care: listeners who already play that artist, or whose listening sits right next to
+    it. Then it sends every one of them to Bandcamp to listen and to buy.</p>
+    <p>It has no checkout, no catalogue of its own and no audio. The only way to buy anything through it
+    is Bandcamp&rsquo;s own button.</p>
+    <div class="roles two">
+      <div class="role">
+        <h4>What it does</h4>
+        <ul>
+          <li>Finds new releases on the Bandcamp pages of artists and labels a listener plays, and tells
+          that listener when one lands, so a fan does not miss a record.</li>
+          <li>Surfaces Bandcamp artists a listener has not met yet, through the labels they already
+          follow and the other bands of artists they play.</li>
+          <li>Links every Bandcamp release to its Bandcamp page.</li>
+          <li>Plays a release through <b>Bandcamp&rsquo;s own embedded player</b>, with its buy button.</li>
+          <li>Reads each followed page once for everybody, not once per listener.</li>
+        </ul>
+      </div>
+      <div class="role">
+        <h4>What it does not do</h4>
+        <ul>
+          <li>Host, copy or re-stream any audio.</li>
+          <li>Stand in for the artist&rsquo;s page, sell music, or take a cut of a sale.</li>
+          <li>Show ads, or sell a place in anyone&rsquo;s feed.</li>
+          <li>Train any model on what it reads from Bandcamp. It trains no models at all.</li>
+        </ul>
+      </div>
+    </div>
 
-    <p>No homework. Yes, there's a taste profile. But, you never manually fill it in. No list to curate, no
-    slider, nothing to rate out of five, no artist you have to remember to go and add; It's
-    built from what you actually played — your Last.fm scrobbles, plus whatever listening history
-    you feel like importing.</p>
+    <div class="note">
+      <h4>Where things stand with Bandcamp</h4>
+      <p>Until now the app has read Bandcamp&rsquo;s public pages and endpoints directly, because there is no
+      public API. <strong>I have paused all of it</strong> until Bandcamp says how it would like this done. It is a
+      single switch, off by default, and turning it back on is a deliberate change on my side. A
+      listener&rsquo;s own browser still loads Bandcamp&rsquo;s player and links, because those are the
+      listener&rsquo;s requests, not mine.</p>
+    </div>
 
-    <p>The app automatically works out which artists are worth watching, follows their Bandcamp and YouTube, and subscribes to them for
-    you. They post a single? We tell you. A label that you obviously trust signs a new artist? It shows up in your discovery feed. 
-    Somebody announces an album? It's on your release calendar.</p>
+    <h3>What I would like to work out with you</h3>
+    <ul>
+      <li><b>How pages should be read.</b> Which endpoints, how often, or an official feed or API if one
+      exists. I will follow whatever you set.</li>
+      <li><b>A referral tag on every outbound link,</b> so you can see exactly what this sends you. Tell
+      me the form you want.</li>
+      <li><b>A way for an artist or label to opt out.</b> If one asks to be left off, they are removed.</li>
+      <li><b>How Bandcamp should be credited and linked.</b> Today the link says &ldquo;Bandcamp&rdquo; and
+      the player is yours.</li>
+      <li><b>Concert dates.</b> The shows Bandcamp relays link out to Songkick. I would rather link them to the
+      artist&rsquo;s Bandcamp page, or drop them, if you prefer.</li>
+    </ul>
+    <p>It is a small alpha, so I have no numbers to show you yet. What I can show you is exactly where every
+    listener is sent.</p>
+  </div>
+</div>
 
-    <p>You can still edit your own feed — hide a release, mute an artist you no longer care
-    about, unfollow a label that isn't for you, pick which platform you'd rather listen on, etc.</p>
+<!-- ============================ THREE ============================ -->
 
-    <h4>A digestible feed</h4>
-    <p>No more deluge of endless recommendations. The front page is something you can <strong>finish.</strong> Five channels — new
-    albums, new singles, videos and live sessions, a release calendar, and a discovery
-    shelf, all ranked by your own listening habits. Each channel is a playable queue. You get through it, you're done, go do something
-    else.</p>
-    <p>Still want more? There is a separate infinite scroll for the real freaks.</p>
+<div class="part">
+  <span class="num">Three</span>
+  <h2>Every card says why</h2>
+</div>
+
+<div class="block">
+  <div class="rail">The rule</div>
+  <div class="body">
+    <p class="lede">If the app cannot say why something reached you, it does not reach you.</p>
+    <p>Each card carries the reason in a plain sentence, put together from records the app actually holds:
+    how often you played the artist, over how long, which label you keep coming back to. If a fact
+    is not in the data, that part of the sentence does not appear.</p>
   </div>
 </div>
 
 <figure>
-  <div class="plate">
-    <div class="mock">
-      <div class="mock-bar">
-        <span>Mock — but the album rows are real</span>
-        <span>Design direction only</span>
-      </div>
-      <div class="mock-inner">
-        <p class="mock-title">Today</p>
-        <p class="mock-sub">Tuesday 12 August · 27 new · 14 on the calendar</p>
-
-        <div class="channel">
-          <div class="channel-head">
-            <h5>New albums</h5>
-            <span class="count">12 · all playable</span>
-          </div>
-          <div class="cards">
-            <div class="card">
-              <div class="art photo"><img src="data:image/jpeg;base64,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" alt="Live In Los Angeles — album cover" /></div>
-              <div class="who">Thee Oh Sees</div>
-              <div class="what">Live In Los Angeles</div>
-              <div class="fig"><b>Fig.</b> released Aug 7 · you've played this artist 185×</div>
-              <div class="act">▶ Bandcamp</div>
-            </div>
-            <div class="card">
-              <div class="art photo"><img src="data:image/jpeg;base64,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" alt="High on Life 2 — soundtrack cover" /></div>
-              <div class="who">TOBACCO</div>
-              <div class="what">High on Life 2 (Original Game Soundtrack)</div>
-              <div class="fig"><b>Fig.</b> released Aug 7 · via Rad Cult · you've played this artist 330×</div>
-              <div class="act">▶ Bandcamp</div>
-            </div>
-            <div class="card">
-              <div class="art photo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWAJYDAREAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAECBAMFBgcI/8QAOxAAAQQBAwMCBAMFBQkAAAAAAQACAxEEBRIhBjFBE1EHImGBFDJxCCNSkcEVYqGx8BYYM0JygsLR4f/EABwBAQEAAwEBAQEAAAAAAAAAAAABAgMEBgUHCP/EADgRAAIBAwIEAggEBAcAAAAAAAABAgMEEQUSBiExQVFhBxMicYGRobEUMsHRI1Lh8CUzNEJigrL/2gAMAwEAAhEDEQA/APr5c+DIYVBJACqBJoWRBhUgwgGgBACAFQCAKQDpAACAaAEA6VAUoCqtRkMKgaAFQSCpiyQVBhz8gYuK+Yt3EcNb/E4mgP5olkjeDXN1iSTd6MDDUReN5cOQASDx7mq7+eyy2k3FjOzpcZ8jfSa4RQeq406rsirAodvPKJFbwQk1KdvEeKJnbWvBa+muBcG0L83fB9u6uBkxP1xoZI5mM9/y/uhdbyHOBB4+Wg2z9/ZNpNw/7bZvdUDnMa824E36YB+eq55aePaj9E2jcbXGk9bHjlArewOq77i1DIyKAEAKgaACoAVBWC0mQwqQFSjCAkqYsYVA0QFQ+ioAgEUaN+6AAGgANAAHgBAOvogHSAYQAgAIBgIAQAgAqoFdajIAhACpSSAapAe5rGF73BrQLJJoBUhxWv8AxN6c0vLkw2Pny54yA4RMIYCf7xXRG3k1k1uok8HnOs/tAZkU00eH0yIQDthdkSbjIR3oNNH6H+q6Y2cWubNbqy7I5yL9oPq6TJex2JoMLQ3gFj3Ue4DnA0OCOT5XQrCn5mqVaa6F3/eG6njMQ/2a0vNc4Hc3HkltteSTwB/7CPTqf8zRFcz8jc6d+0FmPdGMvo2faf8AiPjlrZzxwb/++FhLT49pGSuZd0dZhfGXSXSNGo6DrWCwizK6DcwCrvwSK9gud2Uv9rTNiuPFHZdLdXdP9SwerpOoMkcHFpikBjkB/wCl3P3WipQnT/MjbGpGXQ31LSZjCAaARQAqAQFdaigqUYQDVIMDlCHk/wASszM1/Obi4OsZGJh4znboIDX4ggd3OAJA5ND258rrpNQXNGqXtM4eTSpcgPgfi5GS6KUFjTkBluPYgkWAPPnk2t6lz6mtrkRm6YnxxM/ExsjFBa5pZHskN9qJN9rdz3+qzjUTxkxcX2J4PSe8NmkjEjIm0HvftcXUOKHj3BCydbBhsyTZ0LnvyWZUmK8thJ2lkjC+h3B8AUfoPpwn4lJYTHqn4FiPpV+KHQy4cTGH5wfwzHkusgGxVcCu/hPXJ88kdN+BjyelNsEz8aDLgk3bmkvcGNdVFwDiXDx24Wca6zzZi4Mww6dHpORj6mMx7pWPAfG7e973Aig0kcEeTu4+1rPe55jgjW3me4dD9QxazgNje8fi42bntLgXbfBNefdfLr0nB57HZSqKXLudItBuBACASAaAqhakzIayRBjuhRrIhh1CX0NPyJrA2RON/ZF1IzziOHCe/YM2RzGHcW+qefAujRv+iwVzHxRjt7G60LSnS47zjsLogXActIB79/6D78rap7+YSDFhxmOdGSwyNJDxsA2kE2CO6Snh4Iki/h434xpEOx5byXCgOe1n3UUm+hcZKmrTnSp2w5OMWte2w9rQWnwuS4upUZYcW/MuBYWTh5b2R40EcrnnaBGwe/bjt5UpXjqvESNIu5uDFHOwzwta+iW2bFDvR9+y7PWOK5kcU2YBpWmuNDEie+Q3toncfegtkarl0Zi4xXYloj9MwdW9GOJuNlSODS0x7S/x/oLVK6i5qlJ8+y/YsYpc0jrgqbBoBKgEA0wCqFpRkNZIDCoJBUhoPiJJ6fRWqcOt8JYNos8lfL1i+jZWkqj74XxfI20aLrT2I8P06aaSUQvf6UbnAuDWEjv2F82vA3Gs1IQcorPxO6GnuTw2fQeg4kWFouHiwgBkcLR2qzVk/wAyv0mxebam/FJ/NZPmyjtk0jzn4l5uVp/VEhxoC5kkLHOcwg81yCD70vN6vratrt0U8NJfU2Qtqklvis5Oy+HhdL0+Mp9+pNIXOBFVQApfX0W+jfW3rY+LXyMatJ0pYY/iNA+bpLMfC5rJ4gHxvI/KbAP8wSs9auVbWNSo3jp9WjGFN1JJLqcr8Izkz6pkvzWubJBAGtF2DZ5/19V8Hhy+jc3Mluy9v0yZzpSjHLR1vxAJj6amyGtDnwua5tj60f8ANfZ1+s6NjKaeMY+rwSlDfNLBpvhZNLnsyc6dpa5jWxNFg0LJPb7L5fC93Ou6sZPOMc/f2x+pnXp4xLGCr8S8H0eotL1aGUxOcQ14A4dsNi/N0aXDxZdTsrilWh4P6NfubbW3VbKbPQ2ncAffle6i9yTRxjKoBUDQAqCqFoMhrJIEgqBqg0XXQvpyZvu5q8bx1PZpX/aJ9HSVm5XxPO8LEj9RgLW96BIK/G6ldze1vqepn7KPYYm7ImsH/K0D/Bf0lRgqdOMF2SXyR4RvLycF1zGZdec0jc0Rt47+F+K8b3DhrE1u7R+x6XS4x/D8/FnS9FtDNBhaBVOdx9177gR7tIjLOcyl9z5Gp/6h4H1qC7p3IZVh5a0/pa3caVZU9Jm14xz8zGwWa6+JqPh3isgnzXN3WWsHJ48rz3AU1UuK8vBL6t/sdGox2qKNt1yHO6ZymMaHF+1pB7VYXouM6rpaTNru4/c59PipV0n5lD4awiHTMn5drnTAkV/dFL5Ho/mqlCvNPPtJfT+p0aqsTivIfXbWST4THVxuIv8AUL5fpGq4r21Ndef1aNmlL2Zs6pgoAewX6olhYPjElQCoBUCQFZaDIkFkACoJBUGi63Zv0cEDkSAX7WCvBekOmnpkJ45qa+qZ9PSZYr/A43DgcJox823cLNL8coRlUqxWHjKPRVai2s9R8L+oUeIOL6saHa08iiQxoNDkcL8F4+edZnt54jHPy7no9NeLdZ8ToelxWjxDn8zu4+q/SuBFjRaec9ZdfefJ1D/PZk6iiEuj5DSaoA/yIXVxjR9bo1dZxhJ/Jowspba8Waro1mybJ70Wt5r6rxvo43evr5zjEfuzt1N5jE2PVTC/RZgCRy0/4r1HHcW9EqNdnH7nLp7xXXxKvRIDcCZvFiTmv0Xx/RpNSsay/wCX6I36rzqp+RW6vYHanhl11t/8l8b0iL/FLbPRpf8Ao3aa8UZ4/vkdSF+wnxRoBKgaoBAVQtBkNZAYKoHaoBzWubTgCPYhYThGa2yWUTLXNGM4uMe8EZ/7AuR6baPrSj8kZ+tn4szruXI1kDFGSSY2EnuS0crTK2ozblKCbfXkjJSku5JjWsbTQAB2AFLbCnGnHbBYXkRtvmwe1sjCx7Q5p7g+VjVpQrQcKiyn2YTaeURhhhiJMUbWbu+0Va1W9nb2zbowUc9cLGSynKXVkp4mTROjkaHMdwQsrq1pXVKVGssxfVCEnB7l1MWHiQYkZZBGGAmz9Vy6bpVpplN07WG1N5fmZVas6rzJhl4OLlyRyTxb3Rn5eTwtWo6HY6jUp1bmG5w6c37+3Xp3MqdedNNRfUsr6xpGgEgBANUFQLQjIkFkgCoGCqCQKpGNCAgGqAQAgBAO0A0AdlQNQAgBACAaAprQZEgsgNXJAVKSBVINCDVAAqgaAEAIAQDHZAP7IAVAAoBqALQAgKYXOZkgVkmQdq5A0ABZAkOypGNUgBAMFUDQGLKlMTBtALnO2tvt+p+nCA1rtUlhJZMGW4hrHhpAaSaG4X59/wCaySz0MW8dTHBLjSyuM8sczhzucbo/0UakhyZPUM7EwNOmyxLtbGKG15HzE00d/JIUzhNyeEub9y6sPyNriyMlgZIyQSNI/MOx+q029xSuacatJ5i+j8TZKEoPbLqZVvyYhaAFAFoCmCuVMzGsgMIMDtZJkJBZIDBWRBgoMDCpBoABVBR1SSQOY1jA7a31aJrcQQKvx3VIzRZTpHue/wDDSMklBkaTyLFDj/D245WceXcxZt4YWMj3NL2k+7n8H7la2zI88zdXd1v1VjaZpThLouBKTJkhxLcnIHFN92M558nsvI8YXVTZT0q3l/GrvDX8sO7fhn7I7dPhmTuJL2YfWX9D1TGiZBAyGMUxjQ0fovTWlrTtKEKFP8sUkvgcs5ucnJ9WZbXQYhaAAUA0BSC4zaO1kQdqgauSYGCskyEllkAqQkCqRjVAeQgNMMx+RP6kf7xn5XD+EA89vIN2q1jqRPJo+outujdGkB1PXcITRB37mN3qyCxRFNuvvS3U7atNezEwlVhHqzz/ADets/ribJ0jRYZcPQHMMc+Q4n1ZQeC0G/lHuBzXHlef4l4gt+H6XN7qz6R7Lzf98zr0+yqXzz0h3f6I9N+HnT8Gj6VEY4GxAM2wsAA2t96+q87whpdapKerX2XVqdM9Un3+P2O3UK0FihR5RidUveHywQAgBAMHhAUlxm0kskQFQMIQYVIMFZAdrLIGCqmQldqkGqDi/iH0JoPUWPJmTaWZM8M2iWGZ8bi0mzYaQHH9V8/WNR1OysJz06O6axyxnl3wu78jKjbW9aqlW5L5HlGB8LNFwpDG7CkmP5akYS674tfmdf0hcQSzR5xl0/Lz93TOT0NLRdMhiSWfe+R6r0b0dBp8MXq4rMeCIARY7RXb3XVoXCN1e3H43Vs9c7X1b8ZeC8ur7mu81KEYept+SXh0XuO3FAL9TSS5I+ANACAEAIAQFJcZsGCskQdqgaAapGNUDBWQGFUB8/VZEGCqBhCD8oBoBIAVyB2mQFoBoAQFG1xm0ayRBhUgwiBIKgEICoMGbC6drKbG8NdZjkva7gjmvbus08EaKTdKm3fNkseDtu47uq7/AMXbi+33WW5GO0yv07J9L0mZzth3NIe2ztdV8ijdAjv5V3DazH/ZmXt5zA8uoSA7gHgMLQe9g+9d/sFdyG1mxwInwYrInlttv8vYCyQOw/yH6KZLjBZtAAQAgGoBKgYVAwgNeCuE2j7BZZwQYKqYJWsiDBTIC1SDtAMLJAYPKoJKgLTIGFQNUmABQDtUgwgBANACIH//2Q==" alt="Orphans — album cover" /></div>
-              <div class="who">Art Feynman</div>
-              <div class="what">Orphans</div>
-              <div class="fig"><b>Fig.</b> released Aug 7 · via Western Vinyl · you've played this artist 223×</div>
-              <div class="act">▶ Bandcamp</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="channel">
-          <div class="channel-head">
-            <h5>Videos &amp; live sessions</h5>
-            <span class="count">3 · all playable</span>
-          </div>
-          <div class="cards">
-            <div class="card">
-              <div class="art photo wide"><img src="data:image/jpeg;base64,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" alt="Mikaela Davis, Live on KEXP — video still" /></div>
-              <div class="who">Mikaela Davis</div>
-              <div class="what">Live on KEXP</div>
-              <div class="fig"><b>Fig.</b> session aired Aug 10 · via KEXP · you played this artist 255× over the last two years</div>
-              <div class="act">▶ Watch</div>
-            </div>
-            <div class="card">
-              <div class="art photo wide"><img src="data:image/jpeg;base64,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" alt="Water From Your Eyes, Playing Classics — video still" /></div>
-              <div class="who">Water From Your Eyes</div>
-              <div class="what">"Playing Classics" (Official Video)</div>
-              <div class="fig"><b>Fig.</b> published Aug 8 · via the artist's channel · you listened to this artist 24× last month</div>
-              <div class="act">▶ Watch</div>
-            </div>
-            <div class="card">
-              <div class="art photo wide"><img src="data:image/jpeg;base64,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" alt="Dry Cleaning, Live on KEXP — video still" /></div>
-              <div class="who">Dry Cleaning</div>
-              <div class="what">Full Performance (Live on KEXP)</div>
-              <div class="fig"><b>Fig.</b> session aired Aug 4 · via KEXP · you played this artist 200× over the last two years</div>
-              <div class="act">▶ Watch</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="plate shot">
+    <img src="img/card-desktop.jpg" width="1280" height="560"
+      alt="An opened card for Cyano by Emily A. Sprague: Bandcamp's own player with its buy button, and the sentence 'you listened 6 times in the past month', then release date, label and type." />
   </div>
   <figcaption>
-    <b>Fig. 2</b> — Front page as v1 will look. The layout is a mock, but <strong>the
-    three album rows are real</strong>: the top of my actual feed on Aug 12 — art, labels,
-    and play counts straight from the database. The videos
-    channel is the one part shown ahead of reality — its supply is only half built. Art direction is genuinely open.
+    <b>Fig. 3</b> &mdash; An opened card. The player is Bandcamp&rsquo;s own, with its own <i>buy</i>
+    button. Under it, the reason: <i>you listened 6 times in the past month</i>.
   </figcaption>
 </figure>
-
-<div class="block">
-  <div class="rail">The playlist</div>
-  <div class="body">
-    <h3>The monthly mix, streaming agnostic</h3>
-
-    <p>The other half is the one you already know, because we ran it for years by hand.
-    One playlist per month per group. Opens on the 1st, closes at month's end, and freezes
-    into something permanent — <em>March 2026</em>, there forever, with everyone's picks
-    under their own names. Two people picking the same track isn't a collision, it's
-    corroboration, and you both show up.</p>
-
-    <p>Cross-platform this time, so nobody's locked out: your pick is a record, not a
-    Spotify URI, and everyone opens it wherever they actually listen.</p>
-
-    <p>No comments, no votes, no ranking — and nothing that counts who played your song, who
-    skipped it, or who contributed the most popular pick. <strong>It's collaborative
-    selection, not a competition.</strong> This is the first social piece I want to build,
-    because we already know it works.</p>
-
-    <h3>Anti-social media</h3>
-
-    <p>The site has a social component, but not like that. This platform is built
-    for zero pressure. It is philosophically not performative: no public feed, no
-    panopticon.</p>
-
-    <p>None of the social media machinery: no follower counts, friend counts, no streaks, no
-    leaderboards, no contribution scores, no popularity badges, no "people you may know."
-    The social graph exists internally where a feature needs it to work. <strong>The graph is never
-    the content.</strong></p>
-
-    <h4>No free text anywhere.</h4>
-    <p>No comments, no captions, no DMs, no threads, no reviews. No chat, ever. You want to chat about something? Send a text.</p>
-
-    <p>A limited amount of social interactions, all focusing on music:</p>
-
-    <h4>Record recommendations, where the record is the whole message</h4>
-    <p>You send it. That's the message. No note.</p>
-
-    <p><strong>And that's it.</strong> You don't find out
-    whether they opened it, played it, saved it, binned it, or never saw it because they'd
-    quietly muted the group it came through. Sending music should mean <em>I thought you
-    might like this</em> — not assigning someone homework and then checking whether they did
-    it. You want to tell them you liked it? That's what phones, texting, and group chats are for.</p>
-
-    <div class="statement">
-      It's music sharing without performance.
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="rail">Two kinds<br />of relationship</div>
-  <div class="body">
-    <p>There are exactly two sorts of social relationships on the site, they're different things, and you can have either, both, or
-    neither with any given person.</p>
-  </div>
-</div>
 
 <figure>
-  <div class="plate">
-    <div class="rel">
-      <div class="rel-col">
-        <div class="lbl">Groups</div>
-        <div class="shape">smallish · private · invite link only</div>
-        <ul>
-          <li>A handful of people and a shared monthly playlist.</li>
-          <li>You can be in as many or as few groups as you want. Each group has one creator,
-          who names the group and sends out a link — then it's fully democratic.</li>
-          <li>No directory, no discovery, no suggested groups, no request-to-join.</li>
-          <li><b>Sharing a group is what lets two people send each other records.</b> No
-          group in common, no recommendation.</li>
-        </ul>
-      </div>
-      <div class="rel-col">
-        <div class="lbl">Needle Sharing</div>
-        <div class="shape">strictly one-to-one with people you trust</div>
-        <ul>
-          <li><b>"Share needles with Jeff."</b> A one-to-one
-          relationship, not a tier or a circle or a friend list.</li>
-          <li>Nobody else can find out that you share needles, who with, how many people,
-          or when it started. There's no graph to look at.</li>
-          <li>Needle sharing allows the two of you see more of each other's actual discovery
-          page.</li>
-          <li>It's the only thing that permits <b>bleed</b>.</li>
-        </ul>
-      </div>
-      <div class="rel-foot">
-        <b>Bleed</b> — This is when listening evidence bleeds across to someone you share needles with.
-        One of your needle shares is listening to an artist that you aren't? That slightly boosts that artist's ranking
-        on your discovery page. The name makes it seem more dramatic than it is.
-      </div>
-    </div>
+  <div class="plate shots2">
+    <img src="img/today-phone.jpg" width="750" height="1520"
+      alt="The Today page on a phone: five tabs, then a row of new albums." />
+    <img src="img/why-phone.jpg" width="750" height="1520"
+      alt="A Discovery card on a phone: Bandcamp's player, then 'You played them 2 times, across 2 weeks, most recently in September 2026' and 'On Arbutus Records, a label you keep choosing'." />
   </div>
   <figcaption>
-    <b>Fig. 3</b> — The two relationships. Designed, not built. Groups and Needle Shares
-    are independent: you can share needles with someone you're in no group with, and be in
-    a group with someone you don't share needles with.
+    <b>Fig. 4</b> &mdash; The same on a phone. A Discovery card gives two reasons:
+    <i>You played them 2 times, across 2 weeks, most recently in September 2026</i> and
+    <i>On Arbutus Records, a label you keep choosing</i>.
   </figcaption>
 </figure>
 
-<div class="block">
-  <div class="rail">The club<br />cont.</div>
-  <div class="body">
-    <h4>Nobody is getting their feelings hurt. You can leave without leaving</h4>
-    <p>If a group stops being for you, you <strong>mute</strong> it. You're still listed as
-    a member to everyone else, nobody gets a notification, and nobody can tell it's muted.
-    It just stops asking for your attention — recommendations through it silently don't
-    arrive. From the outside, nothing happened.</p>
-    <p>And when you come back six months later, you land in the group as it is <em>now</em>.
-    No pile of homework you missed.</p>
+<figure>
+  <div class="plate shot">
+    <img src="img/calendar-desktop.jpg" width="1280" height="640"
+      alt="The Calendar page: upcoming albums in columns by release week, each with the artist, title and label." />
   </div>
+  <figcaption>
+    <b>Fig. 5</b> &mdash; The calendar. Upcoming albums by release week, from the artists this
+    listener plays. Singles are left off, because they are rarely announced ahead of time.
+  </figcaption>
+</figure>
+
+<!-- ============================ FOUR ============================ -->
+
+<div class="part">
+  <span class="num">Four</span>
+  <h2>The AI question</h2>
+</div>
+
+<div class="block">
+  <div class="rail">Stated exactly</div>
+  <div class="body">
+    <div class="note">
+      <h4>What a language model does here</h4>
+      <p>A model is used in a small number of places, as a librarian. It answers narrow questions about
+      things already found: <strong>is this label&rsquo;s catalogue curated</strong>,
+      <strong>are these two artist credits the same act</strong>, and
+      <strong>which known release is this candidate</strong>. Each answer is a typed
+      verdict attached to its evidence, and each can be overruled by hand.</p>
+      <p><strong>It never writes anything you read.</strong> Every sentence on a card is assembled from
+      templates over stored facts. It never finds a release; a plain program reading an artist&rsquo;s
+      page does that. It never ranks or recommends. It makes no music and no images.</p>
+      <p>A test fails the build if the code that reads Bandcamp pages so much as imports the model.
+      That wall is the thing I least want to see erode, so I made it noisy.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ FIVE ============================ -->
+
+<div class="part">
+  <span class="num">Five</span>
+  <h2>What it will never do</h2>
 </div>
 
 <div class="block">
   <div class="rail">The rules</div>
   <div class="body">
-    <h3>Things it will never do</h3>
     <div class="refusals">
       <div class="refusal">
-        <div class="x">✕</div>
+        <div class="x">&#10005;</div>
         <div>
-          <b>No model writes anything you read about a record.</b>
-          <p>Every caption, and every explanation of why something turned up, is assembled
-          by templates out of database rows. No AI generated descriptions, no summaries, no
-          headlines, no "why this" blurb, no invented comparisons between bands. If a fact
-          isn't in the database, that part of the sentence just doesn't appear.</p>
+          <b>No thumbs, no stars, no &ldquo;more like this.&rdquo;</b>
+          <p>Only listening decides what the app thinks you like. Hiding a record or
+          muting an artist changes what is shown, never what it believes about your taste.</p>
         </div>
       </div>
       <div class="refusal">
-        <div class="x">✕</div>
+        <div class="x">&#10005;</div>
         <div>
-          <b>It never decides what's good.</b>
-          <p>There is an algorithm that ranks your listening that measures directly against your real listening history.
-          How much you've played an artist, how recently,
-          how consistently. That's it.</p>
+          <b>No black box, and nothing placed for money.</b>
+          <p>The ranking measures your own listening: how much you have played an artist, how
+          recently and how consistently. Nobody can pay to appear.</p>
         </div>
       </div>
       <div class="refusal">
-        <div class="x">✕</div>
+        <div class="x">&#10005;</div>
         <div>
-          <b>No black box.</b>
-          <p>The score is stored with its parts broken out, and the caption under every card
-          exists specifically so you can poke at it. If it can't say why something reached
-          you, it doesn't reach you.</p>
+          <b>No writing by a model.</b>
+          <p>No generated descriptions, summaries or headlines, and no invented comparisons between
+          bands.</p>
         </div>
       </div>
       <div class="refusal">
-        <div class="x">✕</div>
+        <div class="x">&#10005;</div>
         <div>
-          <b>It won't manufacture your friendships.</b>
-          <p>No friend suggestions, no group directory, no "people you may know," no
-          graph-based discovery of any kind. Relationships come from outside the app — you
-          already know these people — and the app's job is to support that, not to
-          generate it. The social graph is never mined to grow the social graph.</p>
+          <b>No social-media machinery.</b>
+          <p>No chat, no follower or friend counts, no streaks, no public feed, and no way to see
+          whether someone opened or played what you sent.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="note">
-  <h4>OK, the AI question</h4>
-  <p>Yes, there's a language model in here. It acts like a neutral data adjudicator. It is limited to the following actions:
-    It can <strong>work out which known release a
-  candidate is</strong>; <strong>research what genre something is</strong>; <strong>work out
-  whether a label's catalogue is actually curated - Western Vinyl = Yes, Warner Bros = No</strong>; and <strong>work out whether two
-  spellings are the same band.</strong></p>
-  <p>That's it. Four bits of boring librarian work, each one producing a typed answer
-  attached to its evidence, each one something I can overrule by hand in a review queue.
-  It's never asked what's good. Never asked what to recommend. Never asked to write a word.
-  It doesn't even find anything — every release in the feed was turned up by a dumb
-  connector checking a subscribed artist's page and reading structured data off it.</p>
-  <p>There's a test that fails the build if one of those connectors so much as imports the
-  model. That wall is the thing I'd least like to see quietly erode, so I made it noisy.</p>
-</div>
-
-<!-- ============================ PART II ============================ -->
-
-<div class="part">
-  <span class="num">Two</span>
-  <h2>What I've actually built so far</h2>
-</div>
-
-<div class="block">
-  <div class="rail">The proof</div>
-  <div class="body">
-    <p class="lede">The engine works, and it now runs itself every night without me.
-    Here's the measurement I care about most, pulled off the live database this
-    morning.</p>
-  </div>
-</div>
-
-<figure>
-  <div class="plate">
-    <div class="tablewrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Listener</th>
-            <th class="num">Plays observed</th>
-            <th class="num">Artists they subscribe to</th>
-            <th class="num">New albums</th>
-            <th class="num">New singles</th>
-            <th class="num">Calendar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="lead">Me</td>
-            <td class="num">203,952</td>
-            <td class="num">3,426</td>
-            <td class="num">12</td>
-            <td class="num">12</td>
-            <td class="num">16</td>
-          </tr>
-          <tr>
-            <td class="lead">Jeff</td>
-            <td class="num">138,706</td>
-            <td class="num">1,169</td>
-            <td class="num">12</td>
-            <td class="num">12</td>
-            <td class="num">13</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <figcaption>
-    <b>Fig. 4</b> — Two people, one shared database, two different feeds, both full.
-    Jeff's collection looks nothing like mine. Every album and single on both pages plays
-    inline — 12 of 12 across the board, no dead ends. Neither of us picked a single one of
-    those subscriptions by hand; the system worked them all out from listening.
-  </figcaption>
-</figure>
-
-<div class="block">
-  <div class="rail">Why it matters</div>
-  <div class="body">
-    <p>That table is constructed from three separate systems:</p>
-
-    <p><strong>One shared database of records.</strong> Finding and identifying new
-    releases happens once, for everybody. Your feed is your own view over it, ranked by
-    your own listening. That's why Jeff had a working front page for weeks before he had
-    a single subscription of his own — my subscriptions were bringing in the records, and
-    his listening ranked them.</p>
-
-    <p><strong>Automatic subscriptions.</strong> Nobody picks artists by hand. The system
-    reads what you've played and subscribes for you. The first time it ran for Jeff it
-    subscribed to 144 artists. It has run every night since; he's at 1,169 now, and I'm
-    at 3,426. If you unsubscribe from an artist, that's permanent — nothing will ever
-    quietly re-add them.</p>
-
-    <p><strong>Artist identity from MusicBrainz.</strong> Last weekend the system asked
-    MusicBrainz — the open music encyclopedia — about all 5,894 artists we hold an
-    identifier for, and cached the answers: official Bandcamp pages, YouTube channels,
-    discographies. So a subscription attaches to an artist's actual page, not a name
-    search's best guess. It also settled a real question: about a thousand of the artists
-    we couldn't find on Bandcamp simply aren't on Bandcamp. Now we know, instead of
-    assuming.</p>
-
-    <p>Still missing before anyone else joins: a login, real hosting, and proof the costs
-    stay sane with more than two people.</p>
-
-    <p>The videos column is zero for both of us because video support isn't built yet.
-    The page says so, rather than padding itself out.</p>
-  </div>
-</div>
-
-<!-- ============================ PART III ============================ -->
-
-<div class="part">
-  <span class="num">Three</span>
-  <h2>The road to an alpha</h2>
-</div>
-
-<div class="block">
-  <div class="rail">Ordered by<br />dependency</div>
-  <div class="body">
-    <div class="steps">
-      <div class="step">
-        <div class="n">1</div>
-        <div>
-          <h4>Let the engine run on its own <span class="chip built">Done</span></h4>
-          <p>Every night at 6am the system pulls in new listening, updates everyone's taste
-          model, subscribes to newly qualifying artists, and re-ranks the feeds — with caps
-          on how much it may add and spend, and a data check that fails the whole night
-          rather than hide a mistake. It's been running since the 9th. Those subscription
-          counts above are its work, not mine.</p>
-          <span class="tag">Shipped 2026-08-09 · bounds measured, not guessed</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="n">2</div>
-        <div>
-          <h4>Point the reader at the new backend</h4>
-          <p>The dashboard: five channels, bounded, each a playable queue. Card anatomy, inline preview, the queue interaction. The API contract is frozen and generated into a typed client, so this is real front-end work rather than API archaeology.</p>
-          <span class="tag">The largest single unlock · design in review now</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="n">3</div>
-        <div>
-          <h4>Auth, hosting, onboarding</h4>
-          <p>Login and a privacy boundary. Deploy the API, the web app, the database, the nightly job. A real "connect your Last.fm" flow. Fix the single-user operator commands first.</p>
-          <span class="tag">The platform work</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="n">4</div>
-        <div>
-          <h4>Video and live sessions</h4>
-          <p>The KEXP slice first — strongest demand evidence in the backlog, including a session by an artist with 255 plays that sat one day old in a feed we don't poll. 232 label YouTube channels are already imported and waiting on the parser.</p>
-          <span class="tag">Makes it feel complete</span>
-        </div>
-      </div>
-      <div class="step">
-        <div class="n">5</div>
-        <div>
-          <h4>Let people in — then the playlist</h4>
-          <p>Four criteria: two users get demonstrably different explainable feeds from one corpus; a new user reaches a useful first session with no local library; private data cannot leak; ingestion cost scales with the corpus, not users × sources. <strong>The first is already met.</strong> The monthly playlist is the first thing that gets built on top.</p>
-          <span class="tag">Criteria 2–4 are steps 2–3</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============================ PART IV ============================ -->
-
-<div class="part">
-  <span class="num">Four</span>
-  <h2>If you want in</h2>
-</div>
-
-<div class="block">
-  <div class="rail">Pick one</div>
-  <div class="body">
-    <p class="lede">There's no wrong size of involvement here. Genuinely — "I'll use it and
-    complain" is a real contribution and probably the one I need most.</p>
-
-    <div class="roles wide">
-      <div class="role">
-        <h4>Just use it</h4>
-        <p>Give me a Last.fm account and be a third person in the system. Every number in
-        here is tuned against two record collections, which is not many. A third one that
-        looks nothing like ours is how I find out what I've accidentally built around my
-        own taste. This is the easiest ask and possibly the most useful.</p>
-      </div>
-      <div class="role">
-        <h4>Tell me it's wrong</h4>
-        <p>Look at your feed and tell me what's stupid about it. Why is that on there? Why
-        isn't this? That's a real job, it needs zero code, and you all have better ears than
-        I do. Half the good decisions in here came from someone saying "that looks off"
-        about a specific record.</p>
-      </div>
-      <div class="role">
-        <h4>Build the front end</h4>
-        <p>Biggest single unlock by a distance. The server side is finished and typed; the
-        page you'd actually look at isn't. If you like making dense, information-heavy
-        things feel easy, you'd move this further in a couple of weekends than anything else
-        on the list. There's a look sketched out — you're reading it — but it's a first
-        instinct, not a decision. Argue with it.</p>
-      </div>
-      <div class="role">
-        <h4>Get it hosted</h4>
-        <p>It runs on my laptop. It needs to run somewhere real: a database, a Python API, a
-        Next.js app, one nightly job. Nothing exotic, but it's nobody's job right now and it
-        blocks everything else.</p>
-      </div>
-      <div class="role">
-        <h4>Nerd out on the data</h4>
-        <p>The genuinely fun problems in here are identity problems. Is "Avalon Emerson &amp;
-        the Charm" the same act as "Avalon Emerson"? Is this Topic-channel upload a real
-        release or noise? These get settled by measuring something, and every answer gets
-        written down. The maths section below is for you.</p>
-      </div>
-      <div class="role">
-        <h4>Just be interested</h4>
-        <p>Honestly, telling me this is worth finishing is worth something. I've been at it
-        a while. If your only involvement is getting the monthly playlist going again on a
-        thing I built, that's a completely good outcome and the reason it exists.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============================ PART V ============================ -->
-<!-- From here down it gets progressively more technical, on purpose. -->
-
-<div class="part">
-  <span class="num">Five</span>
-  <h2>Under the hood</h2>
-</div>
-
-<div class="block">
-  <div class="rail">The pipeline</div>
-  <div class="body">
-    <p class="lede">Everything above is produced by one signal path, and every stage of it is
-    measurable. This is where the page starts getting technical; feel free to stop reading
-    whenever it stops being fun.</p>
-  </div>
-</div>
-
-<figure>
-  <div class="plate">
-    <div class="flow">
-      <div class="stage">
-        <div class="idx">01</div>
-        <div class="name">Observe<small>your real listening</small></div>
-        <div class="detail">Last.fm scrobbles and imported Spotify history land as immutable
-        observations. Append-only; never rewritten, never re-interpreted.
-        <span class="qty">342,658 plays</span></div>
-      </div>
-      <div class="stage">
-        <div class="idx">02</div>
-        <div class="name">Identify<small>who is this, really</small></div>
-        <div class="detail">Raw credit strings resolve onto artists, corroborated by MusicBrainz.
-        Anything genuinely ambiguous goes to a human queue rather than being guessed.
-        <span class="qty">14,774 credit strings → 9,493 artists</span></div>
-      </div>
-      <div class="stage">
-        <div class="idx">03</div>
-        <div class="name">Model taste<small>how much do you care</small></div>
-        <div class="detail">Play counts become signals, then a blended affinity score normalised
-        to your own maximum, so it works for light and heavy listeners alike.
-        <span class="qty">16,711 signals → 11,532 affinity scores</span></div>
-      </div>
-      <div class="stage">
-        <div class="idx">04</div>
-        <div class="name">Acquire supply<small>watch what matters</small></div>
-        <div class="detail">Affinity becomes actual subscriptions at Bandcamp and YouTube,
-        bound against MusicBrainz's own record of each artist's official pages.
-        Monotonic — unsubscribe is the only removal.
-        <span class="qty">4,595 subscriptions across 4,155 followed artists</span>
-        <span class="chip built">Nightly since 2026-08-09</span></div>
-      </div>
-      <div class="stage hot">
-        <div class="idx">05</div>
-        <div class="name">Judge<small>the only model in the building</small></div>
-        <div class="detail">Four typed judgments on things already found. Never authors, never
-        discovers, never ranks. Uncertain cases escalate to the human queue.
-        <span class="qty">→ 230 typed dated developments</span></div>
-      </div>
-      <div class="stage">
-        <div class="idx">06</div>
-        <div class="name">Serve<small>bounded and provable</small></div>
-        <div class="detail">Sections are re-derived at read time from predicates, never stored,
-        so membership is always explainable. Captions composed from stored facts only.
-        <span class="chip built">API built</span> <span class="chip partial">Reader not flipped</span></div>
-      </div>
-    </div>
-  </div>
-  <figcaption>
-    <b>Fig. 5</b> — The signal path, with live row counts. Stage 05 is the only point at
-    which a language model is involved at all, and it operates strictly on things stages
-    01–04 already found deterministically.
-  </figcaption>
-</figure>
-
-<div class="block">
-  <div class="rail">Shipped</div>
-  <div class="body">
-    <h3>Built, tested, running on real data <span class="chip built">Done</span></h3>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Subsystem</th><th>State</th></tr></thead>
-        <tbody>
-          <tr><td class="lead">Listening ingestion</td><td>Full Last.fm history plus the Spotify export, imported as individual dated plays. 342,658 across two listeners.</td></tr>
-          <tr><td class="lead">Identity resolution</td><td>Credit resolution, artist dedup, MusicBrainz mapping, standing human review queue. <strong>95.6%</strong> and <strong>96.2%</strong> play-weighted coverage.</td></tr>
-          <tr><td class="lead">MusicBrainz sweep</td><td>Official pages and discographies cached for 5,459 artists — how a subscription attaches to the right page instead of a name search's best guess.</td></tr>
-          <tr><td class="lead">Taste model</td><td>Signals → affinity, self-normalised per listener. Evidence bands: Established, Emerging, Inferred.</td></tr>
-          <tr><td class="lead">Supply connectors</td><td>Bandcamp and YouTube follow-polling. Fully deterministic, zero model cost. Both switched on.</td></tr>
-          <tr><td class="lead">The nightly run</td><td>Eight ordered phases, 6am, unattended. Caps on how many subscriptions it may add and how much it may spend, and a data check that fails the night rather than hide a problem.</td></tr>
-          <tr><td class="lead">Judgment gateway</td><td>Four typed methods, three backends, every verdict supersedable by a person.</td></tr>
-          <tr><td class="lead">Serving API</td><td>Today, Everything, Calendar, channel queues, channel preferences.</td></tr>
-          <tr><td class="lead">Caption composer</td><td>Deterministic provenance on every card. No evidence row, no clause.</td></tr>
-          <tr><td class="lead">Content exclusions</td><td>Compilations, reissues, archival and catalogue never reach any surface.</td></tr>
-          <tr><td class="lead">Text feed</td><td><code>python -m app.cli today</code> — works right now, and is how we read it daily.</td></tr>
-          <tr><td class="lead">Safety controls</td><td>Snapshot-before-write, single-use review tokens, rollback, harness-level deny list, a data-regression check that refuses to re-baseline itself.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="block">
-  <div class="rail">Partial</div>
-  <div class="body">
-    <h3>Real code, not yet delivering value <span class="chip partial">In flight</span></h3>
-
-    <h4>The front-end flip — the reader points at the old page</h4>
-    <p>The entire new serving backend is built and tested. The web app still reads the
-    legacy endpoint, so <strong>nobody can see the new front page in a browser</strong> —
-    only through the command line. This is the single highest-leverage piece of unbuilt
-    work in the repository, its design spec is in review as of this week, and it is mostly
-    front-end.</p>
-
-    <h4>Artist scope — 18,768 rows, deliberately frozen</h4>
-    <p>Built, materialised, then consciously parked because nothing consumes it. Noted here
-    so nobody helpfully wires it in. I froze it rather than keep polishing a layer — that judgment call is itself part of how this project runs.</p>
-  </div>
-</div>
-
-<div class="block">
-  <div class="rail">Absent</div>
-  <div class="body">
-    <h3>Not built <span class="chip absent">To do</span></h3>
-
-    <h4>Blocking an alpha</h4>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Gap</th><th>What it means today</th></tr></thead>
-        <tbody>
-          <tr><td class="lead">No authentication</td><td>There is no login, no session, no privacy boundary. Two listeners exist in one database because we put them there by hand.</td></tr>
-          <tr><td class="lead">No hosting</td><td>Everything runs on one laptop against a local database. No deployment, no domain (well — there's a domain now; you're reading this on it), no scheduler in the cloud.</td></tr>
-          <tr><td class="lead">No onboarding</td><td>A new person cannot connect their own Last.fm account through any interface. It's a config value.</td></tr>
-          <tr><td class="lead">Reader not flipped</td><td>See above — the new backend has no front end.</td></tr>
-          <tr><td class="lead">Single-user operator commands</td><td>Several maintenance commands are hardcoded to the first user and would write one listener's data using another's credentials. Known, tracked, must be fixed before a third account exists.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h4>Designed and specified, not started</h4>
-    <ul>
-      <li><strong>Video and live-session supply.</strong> Full design plus a KEXP-first slice, with the parser already proven against real uploads — it found a title format the spec had missed. The 232 label channels are imported and waiting. This is why the videos channel is empty.</li>
-      <li><strong>Label qualification</strong> — the best route to artists you've never played.</li>
-      <li><strong>The entire social layer</strong> — the monthly playlist, Groups, Needle Sharing, record recommendations. Fully designed, deliberately not started until the personal product is good on its own. The playlist goes first.</li>
-    </ul>
-  </div>
-</div>
-
-<div class="block">
-  <div class="rail">Fair warning</div>
-  <div class="body">
-    <h3>How I've been working on it</h3>
-    <p>Four habits, each one the result of screwing something up:</p>
-    <ul>
-      <li><strong>Numbers get measured, not remembered.</strong> There's a script for it, and
-      quoting a figure without running it counts as a mistake. This came from a day I lost
-      to the same data being "47% covered" and "92.4% covered" depending on what you divided
-      by — both true, one of them terrifying and completely wrong for the decision I was
-      making.</li>
-      <li><strong>If something's missing, go check the source.</strong> An empty field in my
-      database tells you about my code, not about the world. Before anyone says "the API
-      doesn't give us that," they go make the API call.</li>
-      <li><strong>Nothing's done until it's switched on and checked against real data.</strong>
-      Tests passing and a page rendering correctly are not, on their own, worth anything.</li>
-      <li><strong>The database is protected by actual controls, not by me being careful.</strong>
-      One command I didn't review properly wrote 2,429 junk rows into a queue that had one
-      real thing in it. The fix wasn't a sterner note to self — there was already a note to
-      self. It was a snapshot wrapper and a hard block on the commands that write.</li>
-    </ul>
-    <p>That probably reads as a lot. It's actually the opposite in practice: nearly every
-    hard call has a dated write-up saying what I tried and what I measured, so you can
-    disagree with any of it on the merits instead of guessing what I was thinking. There
-    are 52 of those.</p>
-  </div>
-</div>
-
-<!-- ============================ PART VI ============================ -->
+<!-- ============================ SIX: DATA ============================ -->
 
 <div class="part">
   <span class="num">Six</span>
-  <h2>The actual maths</h2>
+  <h2>What it reads, and why</h2>
 </div>
 
 <div class="block">
-  <div class="rail">For the<br />data guys</div>
+  <div class="rail">The data</div>
   <div class="body">
-    <p class="lede">Since a few of you will want to argue with this: here are the real
-    formulas, copied out of the code, weights and all. If the ranking is supposed to be
-    inspectable, that has to include being inspectable by you.</p>
-
-    <h3>Step one — how much do you care about an artist</h3>
-    <p>Every artist you've played gets a score in [0, 1]. Three terms, fixed weights:</p>
-
-    <div class="formula"><span class="c"># gate: fewer than 6 plays and you don't exist to the model at all</span>
-<span class="k">if</span> effective_plays &lt; <span class="v">6</span>: <span class="k">return</span> <span class="v">0.0</span>
-
-<span class="c"># each term is normalised to YOUR OWN maximum, not a global one</span>
-magnitude(n, n_max) = min( log1p(n) / log1p(n_max), 1.0 )
-
-affinity = <span class="v">0.60</span> · lifetime
-         + <span class="v">0.25</span> · repeat_breadth
-         + <span class="v">0.15</span> · recent_interest
-
-<span class="c"># and a flat floor if you own it in your library</span>
-<span class="k">if</span> owned: affinity = max(affinity, <span class="v">0.10</span>)</div>
-    <span class="src">apps/api/app/taste/affinity.py</span>
-
-    <div class="terms">
-      <div class="term">
-        <div class="w">0.60</div>
-        <div class="d"><b>lifetime</b> — <code>magnitude(total_plays, your_biggest_artist)</code>.
-        Log-scaled, so going from 10 plays to 100 matters far more than 1,000 to 1,090.</div>
-      </div>
-      <div class="term">
-        <div class="w">0.25</div>
-        <div class="d"><b>repeat breadth</b> — did you come back to them? Last.fm:
-        <code>active_weeks / max_active_weeks</code> over a 104-week window. Spotify:
-        <code>0.70·log(years)/log(10) + 0.30·log(months)/log(36)</code>. One period earns
-        nothing — you have to return.</div>
-      </div>
-      <div class="term">
-        <div class="w">0.15</div>
-        <div class="d"><b>recent interest</b> — absolute recent plays, normalised the same
-        way. Deliberately <em>not</em> a share of your lifetime listening, so a heavy old
-        favourite isn't punished for you having moved on this month.</div>
-      </div>
-    </div>
-
-    <h4>Two choices worth flagging</h4>
-    <p><strong>Providers are fused with <code>max()</code>, never added.</strong> Your
-    Spotify streams and your Last.fm scrobbles are frequently <em>the same play counted
-    twice</em>. Each provider is normalised independently and then the components are
-    combined by taking the larger — adding them would double-count anyone who ran both.</p>
-    <p><strong>Everything is normalised to your own ceiling.</strong> There's no global
-    play-count scale, so someone with 200,000 scrobbles and someone with 4,000 get the same
-    spread of scores. It's a rank over your listening, not a measure of how much you listen.</p>
-    <p>And the honest cost of that 6-play gate: on real data it zeroes 73 of 449 Last.fm
-    signals — about 16%. An artist you just started playing stays invisible until the sixth
-    play. That price is paid entirely by new-artist discovery, which is the half of this
-    model that needs the most work.</p>
-
-    <h3>Step two — what order things appear in</h3>
-    <p>Artist affinity is one of five terms in the score that actually sorts your feed:</p>
-
-    <div class="formula">relevance = <span class="v">0.55</span> · artist_affinity
-          + <span class="v">0.15</span> · label_trust
-          + <span class="v">0.10</span> · genre_affinity
-          + <span class="v">0.10</span> · event_weight
-          + <span class="v">0.10</span> · corroboration
-
-corroboration = min( log10(mentions + 1) / log10(6), 1.0 )
-
-event_weight = { released <span class="v">1.0</span> · reissued <span class="v">0.8</span> · announced <span class="v">0.7</span>
-                 single <span class="v">0.5</span> · concert <span class="v">0.4</span> · artist-only <span class="v">0.3</span> }
-
-<span class="c"># no genre data is NOT the same as bad genre match</span>
-genre_affinity = <span class="v">0.5</span> <span class="k">if</span> unknown <span class="k">else</span> measured_value</div>
-    <span class="src">apps/api/app/ranking/relevance.py</span>
-
-    <p>That <code>0.5</code> neutral is a real distinction, not a fudge. <em>"We've never
-    classified this record"</em> and <em>"we classified it and you don't like this genre"</em>
-    are different facts, and collapsing them would either punish everything we haven't got
-    round to tagging or flatter genres you've shown no interest in.</p>
-
-    <div class="note">
-      <h4>The part I'd want you to poke at</h4>
-      <p>At a weight of 0.55, <code>artist_affinity</code> is structurally <strong>0.0 for
-      any artist you've never played.</strong> So a total stranger's maximum possible
-      relevance is 0.45, no matter how good the record is or how much you trust the label.</p>
-      <p>That's deliberate — I wanted a proven listening signal to beat a label-backed
-      unknown — but it means <strong>this blend does not serve new-artist discovery at
-      all</strong>, and I know it. When I last measured, the best-placed unknown artist sat
-      at rank 41 of 45, with none in the top ten. Fixing that properly is open work, and
-      it's the bit I'd most like someone to have opinions about.</p>
-    </div>
-
-    <h3>Step three — how much evidence is behind it</h3>
-    <p>Separately from the score, every artist you've played lands in a band, and the bands
-    are what let a card say <em>how strongly</em> it knows something:</p>
-
-    <div class="terms">
-      <div class="term">
-        <div class="w">Established</div>
-        <div class="d">Above the crossover rank. Sustained listening; the evidence stands
-        on its own.</div>
-      </div>
-      <div class="term">
-        <div class="w">Emerging</div>
-        <div class="d">Below the crossover, but artists you <em>are</em> established on point
-        at them. Light listening, corroborated.</div>
-      </div>
-      <div class="term">
-        <div class="w">Inferred</div>
-        <div class="d">Never played at all. Ranked on a different scale entirely, and can
-        only leave this band by you actually playing them — being surfaced never promotes
-        anything, or the system's guesses become its own evidence.</div>
-      </div>
-    </div>
-
-    <p>The crossover isn't a constant. It's found per person by walking down your ranked
-    artists and asking where corroboration falls off. Two details from building it:</p>
-    <ul>
-      <li><strong>Corroboration is boolean, not counted.</strong> We measured that the vote
-      <em>count</em> is noise across a thirtyfold range, while having <em>any</em> vote does
-      real work. So it's "does anything point here," not "how many things."</li>
-      <li><strong>There is no play-count floor on Emerging, on purpose.</strong> One play
-      plus corroboration is genuinely weak evidence, and the honest way to say that is to
-      rank it last — not to invent a threshold that looks rigorous and isn't.</li>
-    </ul>
-
-    <p>And one thing I'm oddly proud of: the corroboration step costs API calls, so it's
-    budgeted. If the budget — rather than your data — is what determined where the crossover
-    landed, <strong>the whole run refuses and reports nothing</strong> instead of returning
-    a number that's really an artifact of a cost limit. That bug nearly shipped once.</p>
-
-    <p>Every one of these numbers is a constant in a file with a comment explaining what it
-    was calibrated against and what it costs. None of them are tuned per-user, none of them
-    move on their own, and no model has ever touched any of them.</p>
+    <p class="lede">Every field the app takes from Bandcamp, YouTube and MusicBrainz, how it is
+    taken, why, and what it feeds.</p>
+    <p>This is how the app has read these sources. Its reading of Bandcamp is paused (see Two), and would
+    resume only the way Bandcamp agrees to.</p>
   </div>
 </div>
 
-<!-- ============================ APPENDIX ============================ -->
+<figure>
+  <div class="plate wide">
+    <div class="tablewrap">
+      <table class="data">
+        <thead>
+          <tr><th>What it reads</th><th>How</th><th>Why</th><th>How it is used</th></tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><th colspan="4">Bandcamp</th></tr>
+          <tr>
+            <td class="lead">The page&rsquo;s own band id and name</td>
+            <td>Bandcamp&rsquo;s public name search, or the band id an artist page states about itself, when a listener&rsquo;s artist needs a page to follow.</td>
+            <td>To follow the right page. A name alone can belong to several artists.</td>
+            <td>The band id is the identity of a followed page. Everything below is read per band id.</td>
+          </tr>
+          <tr>
+            <td class="lead">Discography listing: release id, album or track, title, cover id, release date, band name</td>
+            <td>One request per followed page when it is polled, to the mobile-app band endpoint. Paced at least 3 seconds apart by default.</td>
+            <td>To notice that something new exists.</td>
+            <td>A new item becomes a candidate release, and nothing reaches a listener until the later checks pass. The page is read once for everybody, not once per listener.</td>
+          </tr>
+          <tr>
+            <td class="lead">Release details: label, pre-order flag, tags, the release&rsquo;s own artist, title, track list with durations, whether any track streams</td>
+            <td>One request per candidate release, to the mobile-app release endpoint.</td>
+            <td>To credit the right artist (a side project can sit on another band&rsquo;s page), to tell a single from an EP or an album by runtime and track count, and to know whether a player can play it.</td>
+            <td>Shown on the card: title, label, type, date. Used to keep singles off the calendar and to decide when a play button is offered. The whole response is stored, so a page is not fetched twice.</td>
+          </tr>
+          <tr>
+            <td class="lead">Upcoming shows: city, venue, date, ticket link</td>
+            <td>Carried in the same band response as the discography. No extra request.</td>
+            <td>To list concerts for artists a listener plays.</td>
+            <td>Shown only for artists the listener plays, in the city the listener chose, linking out to the ticket page (Songkick data that Bandcamp relays).</td>
+          </tr>
+          <tr>
+            <td class="lead">Artist photo id</td>
+            <td>Carried in the same band response. No extra request.</td>
+            <td>To put a face on a Discovery card for an artist.</td>
+            <td>Shown on Discovery artist cards.</td>
+          </tr>
+          <tr>
+            <td class="lead">Cover art and the player</td>
+            <td>The app stores the cover&rsquo;s address, not the image. The listener&rsquo;s browser loads the cover and Bandcamp&rsquo;s embedded player from Bandcamp.</td>
+            <td>So that listening and buying happen on Bandcamp.</td>
+            <td>Covers on every card. The player, with its own buy button, in an opened card.</td>
+          </tr>
+
+          <tr class="grp"><th colspan="4">YouTube</th></tr>
+          <tr>
+            <td class="lead">An artist&rsquo;s channel</td>
+            <td>The channel MusicBrainz lists for the artist, or the Data API&rsquo;s search for the artist&rsquo;s auto-generated &ldquo;Topic&rdquo; channel.</td>
+            <td>To follow the place an artist&rsquo;s videos, live sessions and official audio appear.</td>
+            <td>A followed channel is polled for new uploads.</td>
+          </tr>
+          <tr>
+            <td class="lead">New uploads: video id, title, published time</td>
+            <td>The channel&rsquo;s public uploads feed, and the Data API&rsquo;s playlist listing when a longer look back is needed.</td>
+            <td>To notice a new video or a live session.</td>
+            <td>A new upload becomes a candidate, then goes through the checks below.</td>
+          </tr>
+          <tr>
+            <td class="lead">Video details: title, album, track artist, label, distributor, release date, description, thumbnail, duration, category, vertical-format flag, embeddable and region limits</td>
+            <td>The Data API&rsquo;s video lookup, in batches of up to 50.</td>
+            <td>To tell an official audio upload from a music video or a session, to refuse vertical short-form video, and to offer play only where YouTube will embed it.</td>
+            <td>Sets the card&rsquo;s type and credit, filters what is served, and decides whether the in-page player is offered. The player itself is YouTube&rsquo;s, loaded by the listener&rsquo;s browser.</td>
+          </tr>
+
+          <tr class="grp"><th colspan="4">MusicBrainz</th></tr>
+          <tr>
+            <td class="lead">An artist&rsquo;s MusicBrainz id</td>
+            <td>Taken from the listener&rsquo;s scrobble data when present, otherwise found by name search.</td>
+            <td>Names collide. An id does not.</td>
+            <td>The anchor for everything else MusicBrainz is asked about that artist.</td>
+          </tr>
+          <tr>
+            <td class="lead">Artist detail: official-page links (Bandcamp, YouTube, Deezer), links to other artists (members, side projects, same act), area, country, type</td>
+            <td>One lookup per artist, paced at 1 request a second as MusicBrainz asks, and cached.</td>
+            <td>To follow an artist&rsquo;s own official page rather than a search&rsquo;s best guess, and to find their other bands.</td>
+            <td>Attaches a follow to the right Bandcamp or YouTube page. Feeds Discovery&rsquo;s &ldquo;their bands and side projects&rdquo;.</td>
+          </tr>
+          <tr>
+            <td class="lead">Release-group chronology: an artist&rsquo;s records with dates and types</td>
+            <td>Read with the artist detail, and cached.</td>
+            <td>To know what a record is in an artist&rsquo;s history.</td>
+            <td>Lets a card say &ldquo;their first album in six years&rdquo; only when that is a fact. Helps tell a new release from a reissue.</td>
+          </tr>
+          <tr>
+            <td class="lead">Release lookups: label and track list</td>
+            <td>One lookup per release being checked, cached.</td>
+            <td>To check a release is what it claims to be, and to name its label.</td>
+            <td>Supports the rule that compilations, reissues and catalogue editions are never shown.</td>
+          </tr>
+          <tr>
+            <td class="lead">Label rosters: a label&rsquo;s artists and records</td>
+            <td>One lookup per label, cached.</td>
+            <td>To know which artists a label puts out.</td>
+            <td>Behind Discovery&rsquo;s &ldquo;on a label you keep choosing&rdquo;.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <figcaption>
+    <b>Fig. 6</b> &mdash; Fields are listed as the app reads them today. Every MusicBrainz answer is stored as a
+    snapshot, never as the authority: nothing it says overwrites our own records directly.
+  </figcaption>
+</figure>
+
+<div class="block">
+  <div class="rail">Also read</div>
+  <div class="body">
+    <p>Three other things come in. The listener&rsquo;s own plays from <strong>Last.fm</strong>, by
+    username. A <strong>Spotify history file</strong> the listener uploads, which is deleted after its plays are
+    read. And <strong>Deezer</strong> and the <strong>Cover Art Archive</strong>, used for artist photos and
+    to check that a record is credited to the right artist.</p>
+  </div>
+</div>
+
+<!-- ============================ SEVEN ============================ -->
 
 <div class="part">
-  <span class="num">Appendix</span>
-  <h2>Measured figures</h2>
+  <span class="num">Seven</span>
+  <h2>Where it stands</h2>
 </div>
 
 <div class="block">
-  <div class="rail">Corpus<br />2026-08-12</div>
-  <div class="body wide">
+  <div class="rail">Honestly</div>
+  <div class="body">
+    <p class="lede">It is a small, invitation-only alpha. It is not open to the public and is not
+    yet hosted anywhere public.</p>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>Table</th><th class="num">Rows</th><th>What it answers</th></tr></thead>
+        <thead><tr><th>Part</th><th>State</th></tr></thead>
         <tbody>
-          <tr><td class="lead">listens</td><td class="num">342,658</td><td>raw play observations, append-only</td></tr>
-          <tr><td class="lead">listen_credits</td><td class="num">14,774</td><td>distinct raw credit strings seen</td></tr>
-          <tr><td class="lead">artists</td><td class="num">9,493</td><td>the vocabulary everything downstream inherits</td></tr>
-          <tr><td class="lead">user_artist_signals</td><td class="num">16,711</td><td>per-provider taste signals</td></tr>
-          <tr><td class="lead">user_artist_affinity</td><td class="num">11,532</td><td>blended taste scores</td></tr>
-          <tr><td class="lead">user_follows</td><td class="num">4,595</td><td>subscriptions, all listening-derived</td></tr>
-          <tr><td class="lead">follow_targets</td><td class="num">4,155</td><td>what the site follows on everyone's behalf</td></tr>
-          <tr><td class="lead">musicbrainz_artist_detail_cache</td><td class="num">5,459</td><td>MusicBrainz's own answer sheet, per artist</td></tr>
-          <tr><td class="lead">extracted_candidates</td><td class="num">408</td><td>what polling actually found</td></tr>
-          <tr><td class="lead">developments</td><td class="num">230</td><td>typed dated things that happened</td></tr>
-          <tr><td class="lead">artist_scope_projection</td><td class="num">18,768</td><td>frozen, read by nothing</td></tr>
+          <tr><td class="lead">News feed</td><td><span class="chip built">Working</span> Albums, singles, videos and live sessions, ranked by your own listening.</td></tr>
+          <tr><td class="lead">Release calendar</td><td><span class="chip built">Working</span> Upcoming albums by release week.</td></tr>
+          <tr><td class="lead">Discovery</td><td><span class="chip built">Working</span> Two rows, each card with its reasons.</td></tr>
+          <tr><td class="lead">Concerts</td><td><span class="chip built">Working</span> Upcoming shows for artists you play, in a city you pick.</td></tr>
+          <tr><td class="lead">Listen later and hide</td><td><span class="chip built">Working</span></td></tr>
+          <tr><td class="lead">Reading Bandcamp pages</td><td><span class="chip partial">Paused</span> Off until Bandcamp says how it would like this done.</td></tr>
+          <tr><td class="lead">Public hosting</td><td><span class="chip partial">In progress</span> It runs on my own hardware today.</td></tr>
+          <tr><td class="lead">Exchanges and Groups</td><td><span class="chip absent">Designed, not built</span></td></tr>
         </tbody>
       </table>
     </div>
-
-    <h4>Identity coverage — two denominators, because they answer different questions</h4>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Listener</th><th class="num">Play-weighted<br /><span style="font-weight:400;text-transform:none;letter-spacing:0">what ranking consumes</span></th><th class="num">Credit-weighted<br /><span style="font-weight:400;text-transform:none;letter-spacing:0">what review consumes</span></th></tr></thead>
-        <tbody>
-          <tr><td class="lead">Me</td><td class="num">95.6%</td><td class="num">63.3%</td></tr>
-          <tr><td class="lead">Jeff</td><td class="num">96.2%</td><td class="num">83.9%</td></tr>
-        </tbody>
-      </table>
     </div>
-    <p style="font-size:.9rem;color:var(--ink-soft);max-width:40rem">Reporting one of those
-    without the other is how an afternoon gets lost. They are printed side by side, always.</p>
-
-    <h4>Capabilities, as actually configured</h4>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>Capability</th><th>State</th></tr></thead>
-        <tbody>
-          <tr><td class="lead">Bandcamp connector</td><td><span class="chip built">On</span></td></tr>
-          <tr><td class="lead">YouTube connector</td><td><span class="chip built">On</span></td></tr>
-          <tr><td class="lead">Admin endpoints</td><td><span class="chip built">On</span></td></tr>
-          <tr><td class="lead">Watch reconciler</td><td><span class="chip built">On</span></td></tr>
-          <tr><td class="lead">Nightly cascade</td><td><span class="chip built">On — 6am, unattended, bounded</span></td></tr>
-          <tr><td class="lead">Coverage regression gate</td><td><span class="chip built">On — fails the night rather than hide a data problem</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:.9rem;color:var(--ink-soft);max-width:40rem">A flag is not evidence.
-    Each of these is cross-checked against when the capability last actually ran, because a
-    document once said the nightly job was on while it had been off for two days.</p>
-
-    <h4>Engineering</h4>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th class="num">Figure</th><th>Measure</th></tr></thead>
-        <tbody>
-          <tr><td class="num">885</td><td>commits</td></tr>
-          <tr><td class="num">55,941</td><td>lines of application Python</td></tr>
-          <tr><td class="num">79</td><td>database migrations</td></tr>
-          <tr><td class="num">2,617</td><td>backend tests passing</td></tr>
-          <tr><td class="num">52</td><td>dated design specifications</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
+
+</main>
 
 <footer class="end">
   <span>The Needle Exchange</span>
-  <span>Prospectus &amp; field report</span>
-  <span>2026-08-12</span>
-  <span>Fig. 2 is a mock</span>
+  <span>A private alpha</span>
+  <span>2026-10-02</span>
+  <span>Screens: the working app</span>
 </footer>
 
 </div>
+</body>
+</html>

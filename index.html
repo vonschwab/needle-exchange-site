@@ -589,7 +589,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
         <ul>
           <li>Reads your <b>Last.fm listening</b>, plus a listening-history file if you have one.</li>
           <li>Works out which artists matter to you, and <b>watches for them</b>: their YouTube
-          channels for videos and live sessions, and a public feed of new releases for albums and singles.</li>
+          channels for videos, session channels for live sessions, and a public feed of new releases for albums and singles.</li>
           <li>New albums, new singles, videos and live sessions, and a <b>release calendar</b>.</li>
           <li>A page you can <b>finish</b>, not a firehose.</li>
         </ul>
@@ -625,14 +625,14 @@ table.data td.lead { color: var(--ink); width: 17rem; }
   <div class="body">
     <p class="lede">Three public sources, each read through its own published interface.</p>
     <p><strong>YouTube</strong>, through its official Data API, is the main one: an artist&rsquo;s own
-    channel and their official audio, music videos and live sessions. <strong>MusicBrainz</strong> and
+    channel, official audio and music videos, plus live-session channels. <strong>MusicBrainz</strong> and
     <strong>ListenBrainz</strong> say which releases are new and make sure a name means the one artist.
     <strong>Last.fm</strong> is where your listening comes from.</p>
     <div class="roles two">
       <div class="role">
         <h4>What it does</h4>
         <ul>
-          <li>Finds new videos and live sessions on the YouTube channels of artists a listener plays, and
+          <li>Finds new videos on the YouTube channels of artists a listener plays, and new live sessions on session channels, and
           tells that listener when one lands.</li>
           <li>Finds new releases in ListenBrainz&rsquo;s public list of fresh releases, and checks each
           against MusicBrainz before anyone sees it.</li>
@@ -805,7 +805,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
           <tr>
             <td class="lead">An artist&rsquo;s channel</td>
             <td>The channel MusicBrainz lists for the artist, the Data API&rsquo;s search for the artist&rsquo;s auto-generated &ldquo;Topic&rdquo; channel, or its channels lookup to resolve an @handle in a curated import.</td>
-            <td>To follow the place an artist&rsquo;s videos, live sessions and official audio appear.</td>
+            <td>To follow the place an artist&rsquo;s videos and official audio appear.</td>
             <td>A followed channel is polled for new uploads.</td>
           </tr>
           <tr>
@@ -879,8 +879,8 @@ table.data td.lead { color: var(--ink); width: 17rem; }
     </div>
   </div>
   <figcaption>
-    <b>Fig. 6</b> &mdash; Fields are listed as the app reads them today. Every MusicBrainz answer is stored as a
-    snapshot and used as evidence: it changes a record only through a recorded, reversible decision.
+    <b>Fig. 6</b> &mdash; Fields are listed as the app reads them today. MusicBrainz answers are kept as received,
+    and every bulk change is snapshotted first so it can be undone.
   </figcaption>
 </figure>
 
@@ -888,9 +888,8 @@ table.data td.lead { color: var(--ink); width: 17rem; }
   <div class="rail">Also read</div>
   <div class="body">
     <p>Two other things come in. A <strong>listening-history file</strong> the listener exports from a
-    streaming service and uploads, which is deleted after its plays are read. And the <strong>Cover Art
-    Archive</strong> and <strong>YouTube thumbnails</strong>, for covers: the app stores a cover&rsquo;s
-    address, not the image.</p>
+    streaming service and uploads, which is deleted after its plays are read. And covers, from public sources such as the <strong>Cover Art
+    Archive</strong> and <strong>YouTube thumbnails</strong>: the app stores the link, never the image.</p>
   </div>
 </div>
 
@@ -910,7 +909,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
         <div class="n">1</div>
         <div>
           <h4>Open your invitation</h4>
-          <p>Choose a password. That is the whole account.</p>
+          <p>An emailed invitation and a password you choose. That is all sign-up asks for.</p>
         </div>
       </div>
       <div class="step">
@@ -956,7 +955,7 @@ table.data td.lead { color: var(--ink); width: 17rem; }
           <tr><td class="lead">Release calendar</td><td><span class="chip built">Working</span> Upcoming albums by release week.</td></tr>
           <tr><td class="lead">Discovery</td><td><span class="chip built">Working</span> Two rows, each card with its reasons.</td></tr>
           <tr><td class="lead">Listen later and hide</td><td><span class="chip built">Working</span></td></tr>
-          <tr><td class="lead">Public hosting</td><td><span class="chip partial">In progress</span> It runs on my own hardware today.</td></tr>
+          <tr><td class="lead">Public hosting</td><td><span class="chip partial">Not yet public</span> A small private alpha. It runs on my own hardware today.</td></tr>
           <tr><td class="lead">TIDAL</td><td><span class="chip partial">Being built</span> A TIDAL player on cards, and TIDAL as a source of new releases.</td></tr>
           <tr><td class="lead">Exchanges and Groups</td><td><span class="chip absent">Designed, not built</span> Two kinds of relationship, an Exchange between two people and small private Groups, with no chat and no counts.</td></tr>
         </tbody>
